@@ -1,0 +1,14 @@
+sql.user=user
+sql.pass=pass
+sql.db=db
+sql.host=localhost
+sql.profiler=FALSE
+
+app.kohana_env=DEVELOPMENT
+
+app.domain=
+
+app.error_repoting=E_ALL | E_STRICT
+app.docroot=
+app.public_root=
+app.default_timezone=Europe/Minsk

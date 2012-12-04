@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ExtasyCMS" default="all" basedir=".">
+	<property file="app.config" />
+
+	<property name="mysql.command"
+		value="mysql -u${sql.user} -p$'{sql.pass}' -h${sql.host} ${sql.db}" />
+
+	<target name="all">
+		<echo message="all" />
+	</target>
+
+	<target name="copy-extasy-media">
+		<copy todir="${app.public_root}" overwrite="true">
+			<fileset dir="${app.docroot}/modules/extasy/data/public">
+				<exclude pattern=".svn"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="update-front-controller" depends="copy-extasy-media">
+		<copy todir="${app.public_root}" overwrite="true">
+			<fileset dir="${app.docroot}/data/public">
+				<exclude pattern=".svn"/>
+			</fileset>
+		</copy>
+		<reflexive file="${app.public_root}/index.php">
+			<filterchain>
+				<replacetokens begintoken="%" endtoken="%">
+					<token key="DOCROOT" value="${app.docroot}"/>
+					<token key="ERROR_REPORTING" value="${app.error_repoting}"/>
+					<token key="PUBLIC_ROOT" value="${app.public_root}"/>
+					<token key="DOMAIN" value="${app.domain}"/>
+					<token key="DEFAULT_TIMEZONE" value="${app.default_timezone}"/>
+				</replacetokens>
+			</filterchain>
+		</reflexive>
+		<if>
+			<equals arg1="${app.kohana_env}" arg2="DEVELOPMENT" />
+			<then>
+				<property name="app.debug" value="1" />
+			</then>
+			<else>
+				<property name="app.debug" value="0" />
+			</else>
+		</if>
+		<reflexive file="${app.public_root}/.htaccess">
+			<filterchain>
+				<replacetokens begintoken="%" endtoken="%">
+					<token key="KOHANA_ENV" value="${app.kohana_env}"/>
+					<token key="DEBUG" value="${app.debug}"/>
+				</replacetokens>
+			</filterchain>
+		</reflexive>
+	</target>
+
+	<target name="configure-database">
+		<copy file="${app.docroot}/application/config/database.php-dist"
+			tofile="${app.docroot}/application/config/database.php" overwrite="true" />
+		<reflexive file="${app.docroot}/application/config/database.php">
+			<filterchain>
+				<replacetokens begintoken="%" endtoken="%">
+					<token key="USER" value="${sql.user}"/>
+					<token key="PROFILER" value="${sql.profiler}"/>
+					<token key="PASS" value="${sql.pass}"/>
+					<token key="DB" value="${sql.db}"/>
+					<token key="HOST" value="${sql.host}"/>
+				</replacetokens>
+			</filterchain>
+		</reflexive>
+	</target>
+
+	<target name="install-database" depends="install-extasy-tables" />
+
+	<target name="install-extasy-tables">
+		<exec checkreturn="true"
+			logoutput="true"
+			command="${mysql.command} &lt; ${app.docroot}/modules/extasy/data/sql/struct.sql" />
+		<exec checkreturn="true"
+			logoutput="true"
+			command="${mysql.command} &lt; ${app.docroot}/modules/extasy/data/sql/data.sql" />
+	</target>
+
+	<target name="update-database" depends="create-changescript" if="changescript.exists">
+		<exec checkreturn="true"
+			logoutput="true"
+			command="${mysql.command} &lt; ${app.docroot}/data/sql/update.sql" />
+	</target>
+
+	<target name="create-changescript">
+		<delete file="${app.docroot}/data/sql/update.sql" />
+		<exec checkreturn="true"
+			logoutput="true"
+			command="php ${app.public_root}/index.php --uri=deploy/create_changescript" />
+
+		<condition property="changescript.exists">
+			<and>
+				<available file="${app.docroot}/data/sql/update.sql"/>
+			</and>
+		</condition>
+	</target>
+
+	<target name="install" depends="install-database, update"/>
+
+	<target name="configure" depends="configure-database" />
+
+	<target name="update" depends="configure, update-front-controller, update-database" />
+	
+	<target name="init-svn-ignores">
+		<phingcall target="__set-svn-ignore">
+			<property name="path" value="application/cache" />
+			<property name="value" value="'*'" />
+		</phingcall>
+		<phingcall target="__set-svn-ignore">
+			<property name="path" value="application/logs" />
+			<property name="value" value="'*'" />
+		</phingcall>
+		<phingcall target="__set-svn-ignore">
+			<property name="path" value="application/config" />
+			<property name="value" value="'database.php'" />
+		</phingcall>
+		<phingcall target="__set-svn-ignore">
+			<property name="path" value="./" />
+			<property name="value" value="-F data/svn_ignores/root.txt" />
+		</phingcall>
+		<phingcall target="__set-svn-ignore">
+			<property name="path" value="data/sql" />
+			<property name="value" value="'update.sql'" />
+		</phingcall>
+	</target>
+		
+	<target name="__set-svn-ignore">
+		<exec checkreturn="true"
+			logoutput="true"
+			command="svn ps svn:ignore ${value} ${path}"/>
+	</target>
+</project>

@@ -1,0 +1,13 @@
+<?php
+
+return array(
+	'default' => array(
+		'connection' => array(
+			'username'   => '%USER%',
+			'password'   => '%PASS%',
+			'database'   => '%DB%',
+			'hostname'   => '%HOST%',
+		),
+		'profiling' => %PROFILER%
+	)
+);
