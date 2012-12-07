@@ -193,7 +193,7 @@ Route::set('site-cabinet_support', 'cabinet/support(/<action>(/<id>))')
 //---------------------}Кабинет-------------------------------------------------
 //----------------------Шаблоны-------------------------------------------------
 
-Route::set('site-template_doc', 'documents/<name>.doc')
+Route::set('site-template_doc', 'documents/<name>.docx')
 	->defaults(array(
 		'directory' => 'site',
 		'controller' => 'template',

@@ -119,5 +119,15 @@ class Model_Partner_Requisites_Legal extends ORM
 	{
 		return self::$_requisite_names;
 	}
+        
+        public function get_requisites()
+        {
+            $result = array();
+            foreach (self::$_requisite_names as $key => $value) 
+            {
+              $result[$key]  = $this->$key;
+            }
+            return $result;
+        }
 
 }

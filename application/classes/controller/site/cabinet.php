@@ -13,8 +13,8 @@ class Controller_Site_Cabinet extends Controller_Auth
 	
 	public function action_index()
 	{
-//		$this->redirect('site-cabinet_statistics');
-		$this->set_view('index/index');
+		$this->redirect('site-cabinet_statistics');
+//		$this->set_view('index/index');
 	}
 	public function action_materials()
 	{
