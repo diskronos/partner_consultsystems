@@ -5,18 +5,46 @@
 
 class Extasy_Model_User extends ORM
 {
+	protected $_has_many = array(
+		'clients' => array(
+			'model' => 'user',
+			'foreign_key' => 'referrer_id',
+			),
+		);
+	protected $_belongs_to = array(
+		'partner' => array(
+			'model' => 'user',
+			'foreign_key' => 'referrer_id',
+		),
+	);
 	protected $_created_column = array('column' => 'created_at','format'=>TRUE);
 	protected $_updated_column = array('column' => 'updated_at','format'=>TRUE);
 
+	protected $_render_options = array(
+		'status' => array(
+			'legal'		 => 'юр. лицо',
+			'individual' => 'физ. лицо'
+		)
+	);
+	
 	protected $_grid_columns = array(
 		'id' => NULL,
 		'email' => NULL,
 		'name' => NULL,
+		'status' => array(
+			'type' => 'template',
+			'template' => '${status_rendered}',
+		),
 		'roles_rendered' => array(
 			'orderable' => FALSE
 		),
 		'created_at' => 'timestamp',
 		'updated_at' => 'timestamp',
+		'requisites' => array(
+			'type' => 'link',
+			'route_str' => 'admin-partner_requisites_edit:edit?id=${id}',
+			'title' => 'Реквизиты',
+		),
 		'change_password' => array(
 			'type' => 'link',
 			'route_str' => 'admin-user:change_password?id=${id}',
@@ -48,21 +76,28 @@ class Extasy_Model_User extends ORM
 			'updated_at' => 'Дата изменения',
 			'name' => 'Имя',
 			'send_orders' => 'Отправлять заказы на почту',
-			'id' => 'ID'
+			'id' => 'ID',
+			'status' => 'Статус',
 		);
 	}
 
 	public function rules()
 	{
 		return array(
-			'name' => array(
+			'name' => array(				//это ник он же логин
 				array('not_empty'),
-				array('regex', array(':value', '#^[a-z0-9\pL ]+$#iu'))
+				array('min_length', array(':value', 3)),
+				array('max_length', array(':value', 16)),
+				array('regex', array(':value', '#^[a-z0-9\pL ]+$#iu')),
+				array(array($this, 'unique'), array('name', ':value')),
 			),
 			'email' => array(
 				array('not_empty'),
 				array('email'),
 				array(array($this, 'unique'), array('email', ':value')),
+			),
+			'fullname' => array(
+				array('not_empty'),
 			),
 		);
 	}
@@ -80,7 +115,8 @@ class Extasy_Model_User extends ORM
 	{
 		return Validation::factory(array())
 			->rule('password', 'not_empty')
-			->rule('password', 'min_length', array(':value', 5))
+			->rule('password', 'min_length', array(':value', 6))
+			->rule('password', 'max_length', array(':value', 18))
 			->rule('password_confirm', 'matches', array(':validation', 'password', ':field'));
 	}
 
@@ -170,4 +206,18 @@ class Extasy_Model_User extends ORM
 			$this->update();
 		}
 	}
+	
+	public function get_requisites()//возвращает - реквизиты -  
+	{
+		$result = orm::factory('partner_requisites_' . $this->status)
+				->where('partner_id', '=', $this->id)
+				->find();
+
+		return ($result->loaded())? $result : FALSE;
+	}
+	public function get_status_rendered()
+	{
+		return $this->get_rendered('status');
+	}
+	
 }

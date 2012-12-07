@@ -4,5 +4,10 @@
  */
 
 return array(
+	'admin.partner_group.index' => array(
+		'title' => 'Группы партнеров',
+		'route' => 'admin-partner_group:index'
+	),
+
 
 );

@@ -419,3 +419,198 @@
 --
 #0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
 #1 {main}
+2012-12-04 17:52:48 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 17:52:48 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 17:53:13 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 17:53:13 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:10:24 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:10:24 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:12:28 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:12:28 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:18:21 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:18:21 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:18:26 --- ERROR: HTTP_Exception_404 [ 404 ]: The requested URL signup was not found on this server. ~ W:\Projects\partner_consultsystems\system\classes\kohana\request\client\internal.php [ 111 ]
+2012-12-04 18:18:26 --- STRACE: HTTP_Exception_404 [ 404 ]: The requested URL signup was not found on this server. ~ W:\Projects\partner_consultsystems\system\classes\kohana\request\client\internal.php [ 111 ]
+--
+#0 W:\Projects\partner_consultsystems\system\classes\kohana\request\client.php(64): Kohana_Request_Client_Internal->execute_request(Object(Request))
+#1 W:\Projects\partner_consultsystems\system\classes\kohana\request.php(1154): Kohana_Request_Client->execute(Object(Request))
+#2 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#3 {main}
+2012-12-04 18:18:26 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:18:26 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:18:30 --- ERROR: HTTP_Exception_404 [ 404 ]: The requested URL signup was not found on this server. ~ W:\Projects\partner_consultsystems\system\classes\kohana\request\client\internal.php [ 111 ]
+2012-12-04 18:18:30 --- STRACE: HTTP_Exception_404 [ 404 ]: The requested URL signup was not found on this server. ~ W:\Projects\partner_consultsystems\system\classes\kohana\request\client\internal.php [ 111 ]
+--
+#0 W:\Projects\partner_consultsystems\system\classes\kohana\request\client.php(64): Kohana_Request_Client_Internal->execute_request(Object(Request))
+#1 W:\Projects\partner_consultsystems\system\classes\kohana\request.php(1154): Kohana_Request_Client->execute(Object(Request))
+#2 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#3 {main}
+2012-12-04 18:18:30 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:18:30 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:18:50 --- ERROR: HTTP_Exception_404 [ 404 ]: The requested URL signup was not found on this server. ~ W:\Projects\partner_consultsystems\system\classes\kohana\request\client\internal.php [ 111 ]
+2012-12-04 18:18:50 --- STRACE: HTTP_Exception_404 [ 404 ]: The requested URL signup was not found on this server. ~ W:\Projects\partner_consultsystems\system\classes\kohana\request\client\internal.php [ 111 ]
+--
+#0 W:\Projects\partner_consultsystems\system\classes\kohana\request\client.php(64): Kohana_Request_Client_Internal->execute_request(Object(Request))
+#1 W:\Projects\partner_consultsystems\system\classes\kohana\request.php(1154): Kohana_Request_Client->execute(Object(Request))
+#2 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#3 {main}
+2012-12-04 18:18:50 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:18:50 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:19:15 --- ERROR: HTTP_Exception_404 [ 404 ]: The requested URL signup was not found on this server. ~ W:\Projects\partner_consultsystems\system\classes\kohana\request\client\internal.php [ 111 ]
+2012-12-04 18:19:15 --- STRACE: HTTP_Exception_404 [ 404 ]: The requested URL signup was not found on this server. ~ W:\Projects\partner_consultsystems\system\classes\kohana\request\client\internal.php [ 111 ]
+--
+#0 W:\Projects\partner_consultsystems\system\classes\kohana\request\client.php(64): Kohana_Request_Client_Internal->execute_request(Object(Request))
+#1 W:\Projects\partner_consultsystems\system\classes\kohana\request.php(1154): Kohana_Request_Client->execute(Object(Request))
+#2 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#3 {main}
+2012-12-04 18:19:16 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:19:16 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:19:16 --- ERROR: HTTP_Exception_404 [ 404 ]: The requested URL signup was not found on this server. ~ W:\Projects\partner_consultsystems\system\classes\kohana\request\client\internal.php [ 111 ]
+2012-12-04 18:19:16 --- STRACE: HTTP_Exception_404 [ 404 ]: The requested URL signup was not found on this server. ~ W:\Projects\partner_consultsystems\system\classes\kohana\request\client\internal.php [ 111 ]
+--
+#0 W:\Projects\partner_consultsystems\system\classes\kohana\request\client.php(64): Kohana_Request_Client_Internal->execute_request(Object(Request))
+#1 W:\Projects\partner_consultsystems\system\classes\kohana\request.php(1154): Kohana_Request_Client->execute(Object(Request))
+#2 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#3 {main}
+2012-12-04 18:19:17 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:19:17 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:23:46 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:23:46 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:24:11 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:24:11 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:25:29 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:25:29 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:26:05 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:26:05 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:27:12 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:27:12 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:27:21 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:27:21 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:27:40 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:27:40 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:28:06 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:28:06 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:30:12 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:30:12 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:30:36 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:30:36 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:32:59 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: images/partner/partner-form-key.png ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:32:59 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: images/partner/partner-form-key.png ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:32:59 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:32:59 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:34:55 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: images/partner/partner-form-key.png ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:34:55 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: images/partner/partner-form-key.png ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:34:55 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:34:55 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:36:31 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: images/partner/partner-form-key.png ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:36:31 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: images/partner/partner-form-key.png ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:36:32 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:36:32 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:42:19 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: images/partner/partner-form-key.png ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:42:19 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: images/partner/partner-form-key.png ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:42:20 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:42:20 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:42:42 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: images/partner/partner-form-key.png ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:42:42 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: images/partner/partner-form-key.png ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:42:42 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:42:42 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:43:45 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: images/partner/partner-form-key.png ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:43:45 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: images/partner/partner-form-key.png ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}
+2012-12-04 18:43:45 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+2012-12-04 18:43:45 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ W:\Projects\partner_consultsystems\system\classes\kohana\request.php [ 1142 ]
+--
+#0 W:\Projects\partner_consultsystems\public_html\index.php(38): Kohana_Request->execute()
+#1 {main}

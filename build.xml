@@ -3,7 +3,7 @@
 	<property file="app.config" />
 
 	<property name="mysql.command"
-		value="mysql -u${sql.user} -p$'{sql.pass}' -h${sql.host} ${sql.db}" />
+		value="mysql -u${sql.user} -p${sql.pass} -h${sql.host} ${sql.db}" />
 
 	<target name="all">
 		<echo message="all" />

@@ -560,7 +560,6 @@ class Kohana_Validation implements ArrayAccess {
 					$values[':param'.($key + 1)] = $value;
 				}
 			}
-
 			if ($message = Kohana::message($file, "{$field}.{$error}") AND is_string($message))
 			{
 				// Found a message for this field and error

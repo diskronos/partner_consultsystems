@@ -449,6 +449,7 @@ H2{
     height:5px;
     font-size:1px;
 }
+
 .login_caption{
     font-size:20px;
 	color:#5B6678;
@@ -2500,8 +2501,12 @@ ul
     left: 0;
     height: 100%;
     width: 100%;
-    background: url(../images/partner-login-bg.png);
+    background: url(/images/partner-login-bg.png);
     z-index: 1400;
+}
+.partner-login-popup .partner-login-popup-title
+{
+    float: left;
 }
 .partner-login-popup .partner-login-block
 {
@@ -2521,7 +2526,7 @@ ul
 {
     position: relative;
     height: 40px;
-    background: url(../images/partner-form-top.png) repeat-x 0 0;
+    background: url(/images/partner-form-top.png) repeat-x 0 0;
     padding: 17px 15px 0 65px;
     border: 1px solid #619729;
     font-size: 20px;
@@ -2549,21 +2554,21 @@ ul
     display: block;
     width: 20px;
     height: 20px;
-    background: url(../images/partner-form-esc.png) no-repeat 0 0;
+    background: url(/images/partner-form-esc.png) no-repeat 0 0;
 }
 .partner-login-popup .partner-login-block .login-top .escape a:hover
 {
-    background: url(../images/partner-form-esc.png) no-repeat 0 -20px;
+    background: url(/images/partner-form-esc.png) no-repeat 0 -20px;
 }
 .partner-login-popup .partner-login-block .login-top .escape a:active
 {
-    background: url(../images/partner-form-esc.png) no-repeat 0 -40px;
+    background: url(/images/partner-form-esc.png) no-repeat 0 -40px;
 }
 .partner-login-popup .partner-login-block .login-form
 {
-    height: 172px;
-    padding: 25px 57px 0 57px;
-    background: url(../images/partner-form-bg.png) repeat-x 0 0;
+    height: 205px;
+    padding: 25px 37px 0 57px;
+    background: url(/images/partner-form-bg.png) repeat-x 0 0;
     border-radius:0 0 5px 5px;
     -moz-border-radius:0 0 5px 5px;
     -webkit-border-radius:0 0 5px 5px;
@@ -2593,7 +2598,7 @@ ul
     height: 39px;
     width: 152px;
     border: none;
-    background: url(../images/partner-input.png) no-repeat 0 0;
+    background: url(/images/partner-input.png) no-repeat 0 0;
     font-size: 20px;
     color: #465066;
     line-height: 38px;
@@ -2610,13 +2615,13 @@ ul
 {
     display: inline-block;
     text-align: center;
-    background: url(../images/checker.png) no-repeat 0 0;
+    background: url(/images/checker.png) no-repeat 0 0;
     width: 19px;
     height: 19px;							
 }
 .partner-login-popup .partner-login-block .login-form .checker span.checked
 {
-    background: url(../images/checker.png) no-repeat 0 -38px;
+    background: url(/images/checker.png) no-repeat 0 -38px;
 }
 .partner-login-popup .partner-login-block .login-form .input-line.button
 {
@@ -2633,7 +2638,7 @@ ul
     margin: 0;
     padding: 0;
     color: #fff;
-    background: url(../images/partner-form-button.png) repeat-x 0 0;
+    background: url(/images/partner-form-button.png) repeat-x 0 0;
     border: 1px solid #619829;
     font-size: 18px;
     line-height: 32px;
@@ -2649,7 +2654,7 @@ ul
 }
 .partner-login-popup .partner-login-block .login-form .input-line.button input.button:hover
 {
-	background: url(../images/partner-form-button.png) repeat-x 0 -34px;
+	background: url(/images/partner-form-button.png) repeat-x 0 -34px;
 }
 .partner-login-popup .partner-login-block .login-form .input-line.button input.button:active
 {
@@ -2665,6 +2670,47 @@ ul
     float: left;
     display: block;
     padding: 19px 0 0 9px;
+}
+.partner-login-popup .partner-login-block .login-form .checkbox-box label {
+font-size: 15px;
+color: #4A546A;
+float: left;
+display: block;
+cursor: pointer;
+}
+
+.partner-login-popup .partner-login-block .login-form .checkbox-box {
+float: left;
+padding: 20px 0 0 0;
+}
+
+.partner-login-popup .partner-login-block .login-form .checkbox-box input {
+width: 13px;
+height: 13px;
+display: block;
+padding: 0;
+margin: 0 5px 0 0;
+float: left;
+position: relative;
+top: 3px;
+cursor: pointer;
+}
+.partner-login-popup .partner-login-block {
+position: absolute;
+top: 450px;
+left: 50%;
+margin: -184px;
+width: 368px;
+height: 255px;
+box-shadow: 7px 8px 10px #959595;
+-moz-box-shadow: 0 0 5px #666;
+-webkit-box-shadow: 7px 8px 10px #959595;
+-o-box-shadow: 0 0 5px #666;
+behavior: url(/pie.htc);
+}
+
+#lostpass {
+font-size: 11px;
 }
 /* end partner login popup */
 

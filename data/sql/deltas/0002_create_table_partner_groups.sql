@@ -1,0 +1,10 @@
+CREATE TABLE `partner_groups` (
+	`id` TINYINT(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(100) NOT NULL,
+	`payout_ratio` INT(3) UNSIGNED NOT NULL,
+	`payment_limit` INT(10) UNSIGNED NULL DEFAULT '0',
+	`logo` VARCHAR(255) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;

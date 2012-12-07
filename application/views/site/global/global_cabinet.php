@@ -1,19 +1,17 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title>Цены и тарифы - WebConsult - онлайн консультант для сайта</title>
-	<meta name="keywords" content="" />
-	<meta name="description" content="Тарифные планы на использование системы онлайн консультирования WebConsult" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="Тарифные планы на использование системы онлайн консультирования WebConsult" />
 	<?php echo HTML::style('css/main.css');?>
 	<?php echo HTML::script('js/jquery-1.6.2.min.js')?>
 	<?php echo HTML::script('js/tabs.js')?>
 	<?php echo HTML::script('js/tabs-2.js')?>
 	<?php echo HTML::script('js/jquery.uniform.js')?>
-</script>
 </head>
 
 <body>
@@ -24,24 +22,7 @@
 	<!-- header -->
 	<div id="header">
 		
-		<!-- top head -->
-		<div class="top-head">
-			
-			<div class="user-info">
-				<span class="user-name">Бабочкин Сергей Юрьевич</span>
-				<span class="user-nikname">(serzhb)</span>
-				<img src="/images/user-purse.png"/>
-				<span class="user-purse">3400 руб.</span>
-			</div>
-			
-			<div class="top-links">
-				<a href="#" class="profile"><img src="images/user-button.png"/>профиль</a>
-				<a href="#"><img src="/images/exit-button.png"/>выход</a>
-			</div>
-			<div class="clear"></div>
-		</div>
-		<!-- end top head -->
-		
+		<?php echo Request::factory(URL::url_to_route('site-registration:cabinet_top_block_logged'))->execute();?>
 		<!-- bottom head -->
 		<div class="bottom-head">
 			
@@ -66,158 +47,31 @@
 	
 	<div class="inner-partner-container">
 	
-		<!-- sk inner menu -->
-		<div class="sk-inner-menu">
-			<ul>
-				<li class="item-1"><a href="#">Статистика</a></li>
-				<li class="item-2"><a href="#">Зарегистрировать</a></li>
-				<li class="item-3"><a href="#">Материалы</a></li>
-				<li class="item-4 selected"><a href="#">Клиенты</a></li>
-				<li class="item-5"><a href="#">Бухгалтерия</a></li>
-				<li class="item-6"><a href="#">Поддержка</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
-		<!-- end sk inner menu -->
+		<?php echo Request::factory(URL::url_to_route('site-additional:cabinet_menu_top'))->execute();?>
+		<!-- payment box -->
+		<?php if (!$user->requisites):?>
+			<div class="sk-payment-box">
+				<div class="inner-payment">
+					<img src="/images/payment-img.png"/>
+					Для активации вашего аккаунта Вам необходимо указать свои
+					<a href="/<?php echo URL::url_to_route('site-cabinet_accounting');?>">платежные данные</a>
+				</div>
+			</div>
+		<?php endif;?>
+		<!-- end payment box -->
 		
-		<!-- clients block -->
-		<div class="sk-clients-block">
-			
-			<!-- search box -->
-			<div class="search-box">
-				<div class="search-line">
-					<form action="">
-						<input type="button" class="button" value="" />
-						<input type="text" class="text" onfocus="if(this.value=='поиск по логину или сайту...') this.value=''" onblur="if(this.value=='') this.value='поиск по логину или сайту...';" value="поиск по логину или сайту..."/>
-					</form>
-					<div class="clear"></div>
-				</div>
-				
-				<div class="client-registration">
-					<a href="#">зарегистрировать клиента</a>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<!-- end search box -->
-			
-			<!-- clients table -->
-			<div class="clients-table">
-				<table>
-					<tr>
-						<td class="col1">логин</td>
-						<td class="col2">сайты</td>
-						<td class="col3">тариф</td>
-						<td class="col4">дата.откл.</td>
-						<td class="col5">дата рег.<img src="/images/table-arrow.png"/></td>
-						<td class="col6">платежей</td>
-						<td class="col7 last">заработано</td>
-					</tr>
-					<tr class="tr-light-green">
-						<td class="col1">test1</td>
-						<td class="col2">
-							<div class="client-site">
-								
-							</div>
-						</td>
-						<td class="col3">оптимальный</td>
-						<td class="col4">12.11.2012</td>
-						<td class="col5">26.10.2012</td>
-						<td class="col6">12000 руб.</td>
-						<td class="col7 last">4000 руб.</td>
-					</tr>
-					<tr class="tr-light-yellow">
-						<td class="col1">test1</td>
-						<td class="col2">
-							<div class="client-site">
-								<a href="#">http://mysite.ru</a>
-							</div>
-						</td>
-						<td class="col3">оптимальный</td>
-						<td class="col4">12.11.2012</td>
-						<td class="col5">26.10.2012</td>
-						<td class="col6">12000 руб.</td>
-						<td class="col7 last">4000 руб.</td>
-					</tr>
-					<tr class="tr-light-green">
-						<td class="col1">test1</td>
-						<td class="col2">
-							<div class="client-site">
-								<a href="#">http://mysite.ru</a>
-								<a href="#">http://mysite.ru</a>
-							</div>
-						</td>
-						<td class="col3">оптимальный</td>
-						<td class="col4">12.11.2012</td>
-						<td class="col5">26.10.2012</td>
-						<td class="col6">12000 руб.</td>
-						<td class="col7 last">4000 руб.</td>
-					</tr>
-					<tr>
-						<td class="col1">test1</td>
-						<td class="col2">
-							<div class="client-site">
-								<a href="#">http://mysite.ru</a>
-							</div>
-						</td>
-						<td class="col3">оптимальный</td>
-						<td class="col4">12.11.2012</td>
-						<td class="col5">26.10.2012</td>
-						<td class="col6">12000 руб.</td>
-						<td class="col7 last">4000 руб.</td>
-					</tr>
-					<tr class="tr-light-pink">
-						<td class="col1">test1</td>
-						<td class="col2">
-							<div class="client-site">
-								
-							</div>
-						</td>
-						<td class="col3">оптимальный</td>
-						<td class="col4">12.11.2012</td>
-						<td class="col5">26.10.2012</td>
-						<td class="col6">12000 руб.</td>
-						<td class="col7 last">4000 руб.</td>
-					</tr>
-				</table>
-			</div>
-			<!-- end clients table -->
-			
-			<!-- info block -->
-			<div class="info-block">
-				
-				<div class="navi-box">
-					<span>Страницы:</span>
-					<ul>
-						<li class="selected"><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-					</ul>
-					<div class="clear"></div>
-				</div>
-				
-				<div class="counter-box">
-					<span>Всего:</span> 12 клиентов
-				</div>
-				<div class="clear"></div>
-			</div>
-			<!-- end info block -->
-			
-		</div>
-		<!-- end clients block -->
-		
+		<?php echo $content;?>
 		<!-- footer -->
 		<div id="footer">
 			<div class="bottom-logo">
 				<a href="#">панель партнера</a>
 			</div>
 		</div>
-		<!-- end footer -->	
+		<!-- end footer -->
 	
 	</div>
 	
 </div>
 <!-- end container -->
-
-
 </noindex></body>
 </html>

@@ -2,11 +2,6 @@
 
 class Controller_Site extends Extasy_Controller
 {
-	public function before() {
-		parent::before();
-		$this->template->set_layout('global/global_site');
-	}
-	
 	public function set_seo_params(
 			$search_value,
 			$search_field = 'url',

@@ -644,6 +644,7 @@ class Kohana_Core {
 			return Kohana::$_files[$path.($array ? '_array' : '_path')];
 		}
 
+
 		if (Kohana::$profiling === TRUE AND class_exists('Profiler', FALSE))
 		{
 			// Start a new benchmark

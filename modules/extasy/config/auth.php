@@ -7,10 +7,12 @@ return array(
 	'hash_method'  => 'sha256',
 	'hash_key'     => 'hash_key', // TODO: Вынести в настройки куда-либо
 	'roles' => array(
-		'admin'   => 1,
+		'admin' => 1,
+		'user'	=> 2,
 	),
 	'roles_labels' => array(
 		'admin' => 'Администратор',
+		'user'  => 'Пользователь',
 	),
 	'form_plugins' => array(
 		'admin' => 'Form_Plugin_Auth_Admin'

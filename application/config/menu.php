@@ -12,6 +12,15 @@ return array
 		'Служебное' => array(
 			'Настройки' => 'admin-config',
 			'Пользователи' => 'admin-user',
+			'Промо' => 'admin-promo',
 		),
-	)
+		'Партнеры' => array(
+			'Группы' => 'admin-partner_group',
+			'Реквизиты на модерации' => 'admin-partner_requisites_moderate',
+		),
+		'Сообщения' => array(
+			'Типы сообщений' => 'admin-message_type:index',
+			'Поддержка' => 'admin-ticket_branch'
+		),
+	),
 );

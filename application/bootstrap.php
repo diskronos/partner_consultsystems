@@ -93,6 +93,8 @@ Kohana::$config->attach(new Config_File);
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
 Kohana::modules(array(
+	'static_page' => MODPATH.'static_page',
+	'docx' => MODPATH.'docx',
 	'image'      => MODPATH.'image',
 	'imagemagick_driver'      => MODPATH.'imagemagick_driver',
 	'email'      => MODPATH.'email',
@@ -114,19 +116,133 @@ Kohana::modules(array(
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
+//---------------------Админка{-------------------------------------------------
+Route::set('admin-ticket_branch', Kohana::$config->load('extasy.admin_path_prefix').'ticket(/<action>(/<id>))')
+	->defaults(array(
+		'directory' => 'admin',
+		'controller' => 'ticket_branch',
+		'action' => 'index',
+	));
 
 
-Route::set('site-cabinet_statistics', 'cabinet/statistics')
+Route::set('admin-promo', Kohana::$config->load('extasy.admin_path_prefix').'promo(/<action>)')
+	->defaults(array(
+		'directory' => 'admin',
+		'controller' => 'promo',
+		'action' => 'edit',
+	));
+
+Route::set('admin-message_type', Kohana::$config->load('extasy.admin_path_prefix').'message/type(/<action>(/<id>))')
+	->defaults(array(
+		'directory' => 'admin',
+		'controller' => 'message_type',
+		'action' => 'index',
+	));
+
+
+Route::set('admin-partner_requisites_moderate', Kohana::$config->load('extasy.admin_path_prefix').'partner/requisites/moderate(/<action>(/<id>))')
+	->defaults(array(
+		'directory' => 'admin',
+		'controller' => 'partner_requisites_moderate',
+		'action' => 'index',
+	));
+
+Route::set('admin-partner_requisites_edit', Kohana::$config->load('extasy.admin_path_prefix').'partner/requisites/<id>/edit')
+	->defaults(array(
+		'directory' => 'admin',
+		'controller' => 'partner_requisites_edit',
+		'action' => 'edit',
+	));
+
+Route::set('admin-partner_group', Kohana::$config->load('extasy.admin_path_prefix') . 'partner/group(/<action>(/<id>))')
+	->defaults(array(
+		'directory' => 'admin',
+		'controller' => 'partner_group',
+		'action' => 'index',
+	));
+//---------------------}Админка-------------------------------------------------
+
+//---------------------Кабинет{-------------------------------------------------
+Route::set('site-cabinet_statistics', 'cabinet/statistics(/<action>)')
 	->defaults(array(
 		'directory' => 'site',
 		'controller' => 'cabinet_statistics',
-		'action' => 'index'
+		'action' => 'index',
 	));
 
-Route::set('site-cabinet', 'cabinet')
+Route::set('site-cabinet_clients', 'cabinet/clients(/<action>)')
 	->defaults(array(
 		'directory' => 'site',
-		'controller' => 'index',
+		'controller' => 'cabinet_clients',
+		'action' => 'index',
+	));
+
+Route::set('site-cabinet_accounting', 'cabinet/accounting(/<action>)')
+	->defaults(array(
+		'directory' => 'site',
+		'controller' => 'cabinet_accounting',
+		'action' => 'index',
+	));
+
+Route::set('site-cabinet_support', 'cabinet/support(/<action>(/<id>))')
+	->defaults(array(
+		'directory' => 'site',
+		'controller' => 'cabinet_support',
+		'action' => 'index',
+	));
+//---------------------}Кабинет-------------------------------------------------
+//----------------------Шаблоны-------------------------------------------------
+
+Route::set('site-template_doc', 'documents/<name>.doc')
+	->defaults(array(
+		'directory' => 'site',
+		'controller' => 'template',
+		'action' => 'generate_doc'
+	));
+
+//----------------------Шаблоны-------------------------------------------------
+
+//-----------------------------------------------------------------------------
+Route::set('site-additional', 'additional(/<action>)')
+	->defaults(array(
+		'directory' => 'site',
+		'controller' => 'additional',
+	));
+
+//---------------------Регистрация{---------------------------------------------
+Route::set('site-registration_remp', 'remember_password/<code>')
+	->defaults(array(
+		'directory' => 'site',
+		'controller' => 'registration',
+		'action' => 'reset_password_2'
+	));
+
+Route::set('site-registration', 'registration(/<action>)')
+	->defaults(array(
+		'directory' => 'site',
+		'controller' => 'registration',
+	));
+
+//Route::set('site-signup', 'signup')
+//	->defaults(array(
+//		'directory' => 'site',
+//		'controller' => 'registration',
+//		'action' => 'signup'
+//	));
+Route::set('site-profile', 'profile')
+	->defaults(array(
+		'directory' => 'site',
+		'controller' => 'profile',
+		'action' => 'index',
+	));
+
+//---------------------}Регистрация---------------------------------------------
+
+//---------------------Глобальные{----------------------------------------------
+Route::set('site-cabinet', 'cabinet(/<action>)')
+	->defaults(array(
+		'directory' => 'site',
+		'controller' => 'cabinet',
 		'action' => 'index'
 	));
 
@@ -135,4 +251,12 @@ Route::set('site-index', '')
 		'directory' => 'site',
 		'controller' => 'index',
 		'action' => 'index'
+	));
+//---------------------}Глобальные----------------------------------------------
+
+Route::set('files', '<file>', array('file' => '.*'))
+	->defaults(array(
+		'directory' => 'extasy',
+		'controller' => 'file',
+		'action' => 'get'
 	));

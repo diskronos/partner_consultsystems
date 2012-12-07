@@ -14,7 +14,7 @@ abstract class Extasy_Navigation_Widget
 		catch (Exception $e)
 		{
 			// Display the exception message
-			Kohana::exception_handler($e);
+			//Kohana::exception_handler($e);
 
 			return '';
 		}

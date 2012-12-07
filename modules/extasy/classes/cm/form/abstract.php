@@ -91,6 +91,7 @@ class CM_Form_Abstract implements CM_Fieldschema_Interface
 				$plugin->after_submit($this);
 			}
 		}
+		$this->after_plugin_submit();
 
 		return $valid;
 	}
@@ -100,6 +101,8 @@ class CM_Form_Abstract implements CM_Fieldschema_Interface
 	protected function validate() { return TRUE; }
 
 	protected function after_submit() {}
+
+	protected function after_plugin_submit() {}
 
 	public function render()
 	{
