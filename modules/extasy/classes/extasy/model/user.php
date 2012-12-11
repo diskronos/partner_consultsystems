@@ -16,7 +16,12 @@ class Extasy_Model_User extends ORM
 			'model' => 'user',
 			'foreign_key' => 'referrer_id',
 		),
+		'partner_group' => array(
+			'model' => 'partner_group',
+			'foreign_key' => 'partner_group_id',
+		),
 	);
+	
 	protected $_created_column = array('column' => 'created_at','format'=>TRUE);
 	protected $_updated_column = array('column' => 'updated_at','format'=>TRUE);
 
@@ -220,4 +225,9 @@ class Extasy_Model_User extends ORM
 		return $this->get_rendered('status');
 	}
 	
+	public function get_clients_transactions()
+	{
+		$ids = array_keys($this->clients->find_all()->as_array('id', NULL));
+		return orm::factory('money_transaction')->where('payor_id', 'in', '(' . implode(',', $ids).')');
+	}
 }

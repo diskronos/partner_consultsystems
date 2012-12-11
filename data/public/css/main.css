@@ -2890,6 +2890,11 @@ font-size: 11px;
     border-bottom: 1px solid #C2DBE2;
     background: url(../images/graphic-sort-bg.png) repeat-x 0 0;
 }
+.graph-cont 
+{
+	height: 400px !important;
+	border: transparent !important;
+}
 .graphic-sort span
 {
     display: block;

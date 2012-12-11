@@ -3,19 +3,26 @@
 defined('SYSPATH') or die('No direct script access.');
 
 ?>
+<script type="text/javascript">
+	var check_and_submit = function(){
+		$('#form-move').submit();
+	};
+</script>
+
+<?php echo $form->render_jq();?>
 
 <div class="left-column">
 	<div class="progress-sort">
 		<span>Движения средств</span>
 		<div class="graphic-sort">
-			<form action="#">
+			<?php echo ext::form_begin(NULL,array('id' => 'form-move'));?>
 				<span>с</span>
-				<input type="text" class="text" id="from" value="11.11.2012" />
+				<?php echo $form->get_field('from')->render();?>
 				<span>по</span>
-				<input type="text" class="text" id="to" value="11.11.2012" />
-				<input type="button" class="button" value="" />
+				<?php echo $form->get_field('to')->render();?>
+				<input type="submit" onclick="javascript: check_and_submit(); return false;"class="button" value="" id="button"/>
 				<div class="clear"></div>
-			</form>
+			<?php echo ext::form_end();?>
 		</div>
 		<div class="clear"></div>
 	</div>

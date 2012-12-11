@@ -138,11 +138,13 @@ class Controller_Site_Registration extends Extasy_Auth_Controller_Base
 			->rule('login', 'max_length', array(':value', 16))
 			->rule('login', 'regex', array(':value', '#^[a-z0-9\pL ]+$#iu'));
 
+		$validation->check();
+
 		if (orm::factory('user')->where('name', '=', $login)->find()->loaded())
 		{
 			$validation->error('login', 'in_use');
 		}
-		$validation->check();
+
 		$errors = $validation->errors('registration');
 		echo json_encode(
 				array(
@@ -204,8 +206,13 @@ class Controller_Site_Registration extends Extasy_Auth_Controller_Base
 		$validation = Validation::factory(array('email' => arr::get($_POST, 'v', '')))
 			->rule('email', 'not_empty')
 			->rule('email', 'email');
-
 		$validation->check();
+
+		if (orm::factory('user')->where('email', '=', arr::get($_POST, 'v', ''))->find()->loaded())
+		{
+			$validation->error('email', 'in_use');
+		}
+
 		$errors = $validation->errors('registration');
 
 		echo json_encode(
@@ -262,9 +269,12 @@ class Controller_Site_Registration extends Extasy_Auth_Controller_Base
 					);
 			}
 			catch (ErrorException $e){}
-			$_POST['login'] = true;
-			$_POST['remember'] = 0;
-			$this->do_login();
+			if (empty($_POST['referrer_id']))
+			{
+				$_POST['login'] = true;
+				$_POST['remember'] = 0;
+				$this->do_login();
+			}
 		}
 
 		echo json_encode(

@@ -10,7 +10,7 @@ defined('SYSPATH') or die('No direct script access.');
 		<span class="user-name"><?php echo $user->name;?></span>
 		<span class="user-nikname">(<?php echo $user->name;?>)</span>
 		<img src="/images/user-purse.png"/>
-		<span class="user-purse">3400 руб.</span>
+		<span class="user-purse"><?php echo $user->balance?> руб.</span>
 	</div>
 
 	<div class="top-links">

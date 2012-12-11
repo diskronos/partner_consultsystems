@@ -32,6 +32,21 @@ class Model_Partner_Group extends ORM
 			'logo' => 'Лого',
 		);
 	}
+	
+	public function get_next_level_group()
+	{
+		$next = FALSE;
+		switch ($this->name)
+		{
+			case 'Junior Partner':
+				$next = 'Premium Partner';
+				break;
+			case '':
+				$next = 'Gold Partner';
+				break;
+		}
+		return $next ? ORM::factory('partner_group')->where('name', '=', $next)->find() : $next;
+	}
 
 
 

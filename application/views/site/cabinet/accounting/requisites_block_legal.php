@@ -5,14 +5,14 @@ defined('SYSPATH') or die('No direct script access.');
 ?>
 <div class="right-column legal">
 	<!-- warning box -->
-	<?php if (!$user->requisites):?>
+	<?php if (!$requisites):?>
 	<div class="warning-box">
 		<div class="inner-warning">
 			Ваш аккаунт не активирован!
 			<span>Укажите реквизиты как юридического лица</span>
 		</div>
 	</div>
-	<?php elseif (!$user->requisites->confirmed):?>
+	<?php elseif (!$requisites->confirmed):?>
 	<div class="warning-box">
 		<div class="inner-warning">
 			Ваш аккаунт не активирован!
@@ -39,7 +39,7 @@ defined('SYSPATH') or die('No direct script access.');
 	<!-- end partner info -->
 
 	<!-- legal form -->
-	<?php if (!$user->requisites):?>
+	<?php if (!$requisites):?>
 	<div class="legal-form">
 		<?php echo ext::form_begin(NULL,array('class' => 'req-form'));?>
 <!--			<div class="input-line">
@@ -61,32 +61,6 @@ defined('SYSPATH') or die('No direct script access.');
 		<?php echo ext::form_end();?>
 	</div>
 	<?php endif;?>
-	<!-- end legal form -->
-
-	<!-- partner info -->
-<!--	<div class="partner-info">
-
-		<div class="info">
-			<span>На балансе: </span>3400 рублей
-		</div>
-
-		<div class="info">
-			<span>Доступно для снятия: </span>2400 рублей
-		</div>
-
-		<div class="info">
-			<span>Ближайшая дата выплат: </span>10.11.2012
-		</div>
-	</div>-->
-	<!-- end partner info -->
-
-<!--	<div class="purse-button">
-		<a href="#">
-			вывести
-			<span>на расчетный счет</span>
-		</a>
-	</div>-->
-
 </div>
 <div class="clear"></div>
 

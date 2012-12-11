@@ -37,7 +37,7 @@ function closeLogin()
 	}
 </script>
 <div id="account">
-	<a href="<?php echo Url::url_to_route('site-registration:signup');?>"><img src="/images/signup.png" border="0" alt="Регистрация" /></a>
+	<a href="/<?php echo Url::url_to_route('site-registration:signup');?>"><img src="/images/signup.png" border="0" alt="Регистрация" /></a>
 	<a href="javascript:showLogin();"><img src="/images/login.png" border="0" alt="Войти под паролем" /></a>
 </div>
 <!-- popup login_form -->

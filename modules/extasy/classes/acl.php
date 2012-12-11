@@ -51,6 +51,8 @@ class ACL extends Extasy_ACL
 			'index',
 			'main_block',
 			'requisites_block',
+			'payout_block',
+			'additional_block'
 		));
 
 		$this->add_resource('site_cabinet_support','admin_auth');

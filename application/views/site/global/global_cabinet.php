@@ -8,10 +8,13 @@
     <meta name="keywords" content="" />
     <meta name="description" content="Тарифные планы на использование системы онлайн консультирования WebConsult" />
 	<?php echo HTML::style('css/main.css');?>
+	<?php echo HTML::style('extasy/css/jquery-ui-1.8.23.custom.css');?>
 	<?php echo HTML::script('js/jquery-1.6.2.min.js')?>
+	<?php echo HTML::script('js/jquery-ui-1.8.24.custom.min.js')?>
 	<?php echo HTML::script('js/tabs.js')?>
 	<?php echo HTML::script('js/tabs-2.js')?>
 	<?php echo HTML::script('js/jquery.uniform.js')?>
+	
 </head>
 
 <body>
@@ -31,11 +34,11 @@
 			</div>
 			
 			<div class="partner-counter">
-				<div class="counter-logo"><img src="/images/counter-logo.png"/></div>
+				<div class="counter-logo"><img src="<?php echo $user->partner_group->logo?>"></div>
 				<div class="counter-line">
-					<div class="progress-bar" style="width:50%"></div>
+					<div class="progress-bar" style="width:<?php echo $percent_to_next_level?>"></div>
 				</div>
-				до следующего уровня 13400 рублей
+				до следующего уровня <?php echo $to_next_level?> рублей
 			</div>
 			<div class="clear"></div>
 			
