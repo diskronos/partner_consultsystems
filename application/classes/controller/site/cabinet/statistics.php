@@ -56,6 +56,8 @@ class Controller_Site_Cabinet_Statistics extends Controller_Site_Cabinet
 		//платежи
 		
 		$client_ids = array_keys($this->_user->clients->find_all()->as_array('id', NULL));
+		if (!empty($client_ids))
+		{
 
 		$payed = db::select(
 						DB::expr('sum(beneficiary_account_balance) as total_payed'), 
@@ -82,6 +84,13 @@ class Controller_Site_Cabinet_Statistics extends Controller_Site_Cabinet
 				->group_by('date')
 				->execute()
 				->as_array('date', 'total_payed');
+		}
+		else
+		{
+			$payed = array(); 
+			$earned = array();
+		
+		}
 		$registered = array_merge($dates, $registered);
 		$payed = array_merge($dates, $payed);
 		$earned = array_merge($dates, $earned);
