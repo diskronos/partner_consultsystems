@@ -4,7 +4,7 @@ defined('SYSPATH') or die('No direct script access.');
 
 class Model_Partner_Requisites_Individual extends ORM
 {
-	protected $_table_name = 'individual_requisites';	
+	protected $_table_name = 'individual_requisites';
 
 	protected $_belongs_to = array(
 		'user' => array(
@@ -28,6 +28,11 @@ class Model_Partner_Requisites_Individual extends ORM
 				array('not_empty'),
 			),
 		);
+	}
+	
+	public function get_name()
+	{
+		return $this->wmz_purse_number;
 	}
 
 }

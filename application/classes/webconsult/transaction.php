@@ -4,25 +4,32 @@ defined('SYSPATH') or die('No direct script access.');
 
 class Webconsult_Transaction
 {
-//CREATE TABLE `transactions` (
+//CREATE TABLE `payments_client` (
 //	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-//	`payer_id` INT(10) UNSIGNED NULL DEFAULT NULL,
-//	`beneficiary_id` INT(10) UNSIGNED NULL DEFAULT NULL,
-//	`parent_transaction_id` INT(10) UNSIGNED NULL DEFAULT NULL,
-//	`payer_account_balance` BIGINT(20) NOT NULL,
-//	`beneficiary_account_balance` BIGINT(20) NOT NULL,
-//	`beneficiary_account_hold_balance` BIGINT(20) NOT NULL,
-//	`status` ENUM('active','reverted','revert') NOT NULL DEFAULT 'active',
-//	`type` ENUM('client_payment','company_payment') NOT NULL DEFAULT 'client_payment',
+//	`client_id` INT(10) UNSIGNED NOT NULL,
+//	`payment_sum` INT(10) UNSIGNED NOT NULL,
+//	`status` ENUM('active','holded','reverted') NULL DEFAULT 'holded',
 //	`commentary` VARCHAR(255) NULL DEFAULT NULL,
 //	`created_at` INT(10) UNSIGNED NOT NULL,
-//	PRIMARY KEY (`id`),
-//	INDEX `parent_transaction_id` (`parent_transaction_id`),
-//	CONSTRAINT `parent_transaction_id` FOREIGN KEY (`parent_transaction_id`) REFERENCES `transactions` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+//	PRIMARY KEY (`id`)
 //)
 //COLLATE='utf8_general_ci'
-//ENGINE=InnoDB
+//ENGINE=InnoDB;
 
+//CREATE TABLE `payments_partner` (
+//	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+//	`client_payment_id` INT(10) UNSIGNED NULL DEFAULT NULL,
+//	`partner_id` INT(10) UNSIGNED NOT NULL,
+//	`payment_sum` INT(10) UNSIGNED NOT NULL,
+//	`status` ENUM('active','holded','reverted') NOT NULL DEFAULT 'holded',
+//	`commentary` VARCHAR(255) NULL DEFAULT NULL,
+//	`created_at` INT(10) UNSIGNED NULL DEFAULT NULL,
+//	PRIMARY KEY (`id`),
+//	INDEX `client_partner_fk_1` (`client_payment_id`),
+//	CONSTRAINT `client_partner_fk_1` FOREIGN KEY (`client_payment_id`) REFERENCES `payments_client` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+//)
+//COLLATE='utf8_general_ci'
+//ENGINE=InnoDB;
 	
 	
 //CREATE TABLE `payouts` (
@@ -37,54 +44,49 @@ class Webconsult_Transaction
 //COLLATE='utf8_general_ci'
 //ENGINE=InnoDB;
 
-	static function client_payment($client_id, $payment_sum)
+	static function client_payment($client_id, $payment_sum, $partner_share = TRUE, $status = 'holded')
 	{
 		$db = Database::instance();
 		$db->begin();
 		$client = ORM::factory('user', $client_id);
+		$partner = $client->partner;
+
 		try {
-			$transaction_client_to_company = ORM::factory('money_transaction')
+			$transaction_client_to_company = ORM::factory('money_payment_client')
 					->values(
 							array(
-								'payer_id' => $client->id,
-								'payer_account_balance' => '-' . $payment_sum,
-								'beneficiary_account_balance' => $payment_sum,
-								'beneficiary_account_hold_balance' => 0,
-								'type' => 'client_payment'
+								'client_id' => $client->id,
+								'payment_sum' => $payment_sum,
+								'commentary' => 'Клиентский платеж',
+								'status' => $status,
 							))
 					->save();
 
-			$client->balance -=$payment_sum;
-			$client->save();
-
-			if ($client->partner->loaded())
+			if ($partner->loaded() AND $partner_share)
 			{
-				$parner_sum = $payment_sum * $client->partner->partner_group->payout_ratio / 100;
-				$transaction_company_to_partner = ORM::factory('money_transaction')
+				$partner_sum = $payment_sum * $partner->partner_group->payout_ratio / 100;
+				$transaction_company_to_partner = ORM::factory('money_payment_partner')
 						->values(
 								array(
-									'beneficiary_id' => $client->partner->id,
-									'payer_account_balance' => '-' . $parner_sum,
-									'beneficiary_account_balance' => 0,
-									'beneficiary_account_hold_balance' => $parner_sum,
-									'parent_transaction_id' => $transaction_client_to_company->id,
-									'type' => 'company_payment',
-									'commentary' => $client->id,
+									'partner_id' => $partner->id,
+									'payment_sum' => $partner_sum,
+									'client_payment_id' => $transaction_client_to_company->id,
+									'commentary' => $partner->partner_group->payout_ratio . '% процентов за оплату (логин ' . $client->name . ')',
+									'status' => $status,
 								))
 						->save();
-
-				$client->partner->balance += $parner_sum;
-				$client->partner->save();
-				
+				$partner->balance = Webconsult_Balance::factory($partner->id)->get_money_balance();
+				$partner->save();
 			}
+			$client->balance = Webconsult_Balance::factory($client->id)->get_money_balance();
+			$client->save();
 			$db->commit();
 		}
 		catch (Database_Exception $e)
 		{
-//			var_dump($e);die();
 			$db->rollback();
+			throw new Exception('Транзакция не удалась, откат');
 		}
-		
 	}
 	
 	static function money_back($transaction_id)
@@ -92,6 +94,22 @@ class Webconsult_Transaction
 		$db = Database::instance();
 		$db->begin();
 		try {
+			$transaction_client_to_company = ORM::factory('money_payment_client', $transaction_id);
+			$transaction_client_to_company->status = 'reverted';
+			$transaction_client_to_company->save();
+			$transaction_company_to_partner = $transaction_client_to_company->partner_payment;
+			$client = $transaction_client_to_company->client;
+			if ($transaction_company_to_partner->loaded())
+			{
+				$transaction_company_to_partner->status = 'reverted';
+				$transaction_company_to_partner->save();
+				$partner = $transaction_company_to_partner->partner;
+				$partner->balance = Webconsult_Balance::factory($client->id)->get_money_balance();
+				$partner->save();
+			}
+			$client->balance = Webconsult_Balance::factory($client->id)->get_money_balance();
+			$client->save();
+
 			$db->commit();
 		}
 		catch (Database_Exception $e)
@@ -103,13 +121,29 @@ class Webconsult_Transaction
 
 	static function money_payout_query($partner_id, $payout_sum)
 	{
+		$db = Database::instance();
+		$db->begin();
 		$partner = ORM::factory('user', $partner_id);
-		$parent_payout = ORM::factory('money_payout')
-					->values(
-							array(
-								'partner_id' => $partner->id,
-								'payout_sum' => $payout_sum,
-							))
-					->save();
+		try 
+		{
+			$parent_payout = ORM::factory('money_payout')
+						->values(
+								array(
+									'partner_id' => $partner->id,
+									'payout_sum' => $payout_sum,
+									'commentary' => 'Вывод средств с баланса (на ' . $partner->requisites->name .')',
+								))
+						->save();
+			$partner->balance = Webconsult_Balance::factory($partner->id)->get_money_balance();
+			$partner->save();
+			$db->commit();
+		}
+		catch (Database_Exception $e)
+		{
+			$db->rollback();
+			throw new Exception('Транзакция не удалась, откат');
+		}
 	}
+
+	
 }

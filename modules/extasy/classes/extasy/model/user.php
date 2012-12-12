@@ -55,6 +55,11 @@ class Extasy_Model_User extends ORM
 			'route_str' => 'admin-user:change_password?id=${id}',
 			'title' => '[Сменить пароль]',
 		),
+		'login_as' => array(
+			'type' => 'link',
+			'route_str' => 'admin-user:login_as?id=${id}',
+			'title' => '[Войти под аккаунтом]',
+		),
 		'edit' => array(
 			'type' => 'link',
 			'route_str' => 'admin-user:edit?id=${id}',

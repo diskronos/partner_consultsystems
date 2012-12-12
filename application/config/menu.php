@@ -22,5 +22,10 @@ return array
 			'Типы сообщений' => 'admin-message_type:index',
 			'Поддержка' => 'admin-ticket_branch'
 		),
+		'Финансы' => array(
+			'Выплаты' => 'admin-money_payout',
+			'Клиентские платежи' => 'admin-money_payment_client',
+		//	'Партнерские отчисления' => 'admin-money_payment_partner',
+		),
 	),
 );

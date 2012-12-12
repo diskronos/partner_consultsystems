@@ -18,7 +18,7 @@ class Webconsult_Balance
 	public function get_money_earned()
 	{
 		return arr::get(
-			db::query(Database::SELECT, DB::expr($this->db_compile_debet() . ' as result'))
+			db::query(Database::SELECT, DB::expr('SELECT ( ' . $this->db_compile_debet() . ') as result'))
 				->execute()
 				->current(),
 			'result',
@@ -28,7 +28,7 @@ class Webconsult_Balance
 	public function get_money_holded()
 	{
 		return arr::get(
-			db::query(Database::SELECT, DB::expr('Select ( ' . $this->db_compile_holded_benefits() . ') as result'))
+			db::query(Database::SELECT, DB::expr('SELECT ( ' . $this->db_compile_holded_payments_as_partner() . ') as result'))
 				->execute()
 				->current(),
 			'result',
@@ -50,7 +50,7 @@ class Webconsult_Balance
 	public function get_money_balance()
 	{
 		return arr::get(
-			db::query(Database::SELECT, DB::expr('SELECT((' .$this->db_compile_debet() . ') - ('. $this->db_compile_credit(). ')) as result'))
+			db::query(Database::SELECT, $this->db_compile_balance())
 				->execute()
 				->current(),
 			'result',
@@ -61,7 +61,7 @@ class Webconsult_Balance
 	public function get_money_available()
 	{
 		return arr::get(
-			db::query(Database::SELECT, DB::expr('SELECT((' .$this->db_compile_benefits() . ') - ('. $this->db_compile_credit(). ')) as result'))
+			db::query(Database::SELECT, DB::expr('SELECT( (' .$this->db_compile_payments_as_partner() . ') - ('. $this->db_compile_holded_payments_as_partner(). ')) as result'))
 				->execute()
 				->current(),
 			'result',
@@ -73,29 +73,43 @@ class Webconsult_Balance
 
 	//------------DB запросы---------------------------------------------------
 	//-------------База
-	protected function db_compile_payments() // пользователь платит фирме
+	protected function db_compile_payments_as_client() // пользователь платит фирме
 	{
-		return	DB::select(DB::expr('ifnull(sum(payer_account_balance),0)'))
-					->from('transactions')
-					->where('payer_id', '=', $this->_user->id)
-					->compile(Database::instance());
-	}
-
-	protected function db_compile_benefits() //фирма заплатила пользователю
-	{
-		return DB::select(DB::expr('ifnull(sum(beneficiary_account_balance),0)'))
-					->from('transactions')
-					->where('beneficiary_id', '=', $this->_user->id)
+		return	DB::select(DB::expr('ifnull(sum(payment_sum),0)'))
+					->from('payments_client')
+					->where('client_id', '=', $this->_user->id)
+					->and_where('status', '<>', 'reverted')
 					->compile(Database::instance());
 	}
 	
-	protected function db_compile_holded_benefits() //фирма платит в холд
+
+	protected function db_compile_payments_as_partner() // фирма платит партнеру
 	{
-		return DB::select(DB::expr('ifnull(sum(beneficiary_account_hold_balance),0)'))
-					->from('transactions')
-					->where('beneficiary_id', '=', $this->_user->id)
+		return	DB::select(DB::expr('ifnull(sum(payment_sum),0)'))
+					->from('payments_partner')
+					->where('partner_id', '=', $this->_user->id)
+					->and_where('status', '<>', 'reverted')
 					->compile(Database::instance());
 	}
+
+	protected function db_compile_holded_payments_as_partner() // пользователь платит фирме
+	{
+		return	DB::select(DB::expr('ifnull(sum(payment_sum),0)'))
+					->from('payments_partner')
+					->where('partner_id', '=', $this->_user->id)
+					->and_where('status', '=', 'holded')
+					->compile(Database::instance());
+	}
+
+	protected function db_compile_active_payments_as_partner() // пользователь платит фирме
+	{
+		return	DB::select(DB::expr('ifnull(sum(payment_sum),0)'))
+					->from('payments_partner')
+					->where('partner_id', '=', $this->_user->id)
+					->and_where('status', '=', 'active')
+					->compile(Database::instance());
+	}
+
 	protected function db_compile_payouts()		//сброс с баланса
 	{
 		return DB::select(DB::expr('ifnull(sum(payout_sum),0)'))
@@ -106,19 +120,18 @@ class Webconsult_Balance
 	//----------------Сложные
 	protected function db_compile_debet()
 	{
-		return DB::select(DB::expr('(' . $this->db_compile_holded_benefits() .' ) + ( ' . $this->db_compile_benefits().')'))
-					->compile(Database::instance());
+		return $this->db_compile_payments_as_partner();
 	}
 	
 	protected function db_compile_credit()
 	{
-		return DB::select(DB::expr('(' . $this->db_compile_payouts() .' ) - ( ' . $this->db_compile_payments() . ')' ))
+		return DB::select(DB::expr('(' . $this->db_compile_payouts() .' ) + ( ' . $this->db_compile_payments_as_client() . ')' ))
 					->compile(Database::instance());
 	}
 	
 	protected function db_compile_balance()
 	{
-		return DB::select( '(' . DB::expr($this->db_compile_debet() .' ) - ( ' . $this->db_compile_credit() . ')'))
+		return DB::select(DB::expr('( ' . $this->db_compile_debet() .' ) - ( ' . $this->db_compile_credit() . ') as result' ))
 					->compile(Database::instance());
 	}
 

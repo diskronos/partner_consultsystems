@@ -11,7 +11,7 @@ class CM_Field_Date extends CM_Field
 	{
 		return View::factory('cm/field/date', array(
 			'name' => $this->get_name(),
-			'value' => $this->get_value()->get_raw()
+			'value' => $this->get_value()->get_rendered()
 		));
 	}
 

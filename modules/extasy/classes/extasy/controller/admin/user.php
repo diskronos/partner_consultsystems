@@ -30,4 +30,18 @@ class Extasy_Controller_Admin_User extends Controller_Crud
 
 		$this->template->form = $form;
 	}
+	
+	public function action_login_as()
+	{
+		$auth = Auth::instance();
+		$user = ORM::factory('user', $this->param('id'));
+		if (!$user->loaded())
+		{
+			$this->forward_404();
+		}
+		$auth->logout();
+		$auth->force_login($user);
+		$auth->auto_login();
+		$this->redirect('site-index');
+	}
 }

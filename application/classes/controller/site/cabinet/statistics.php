@@ -30,7 +30,7 @@ class Controller_Site_Cabinet_Statistics extends Controller_Site_Cabinet
 			$start_date = date('d.m.Y', time() - 7 * 86400);
 			$final_date = date('d.m.Y');
 		}
-		
+
 		$dates = array();
 		$temp_date = $start_date;
 		$dates[$temp_date] = 0;
@@ -39,6 +39,9 @@ class Controller_Site_Cabinet_Statistics extends Controller_Site_Cabinet
 			$temp_date = date('d.m.Y', strtotime($temp_date) + 86400);
 			$dates[$temp_date] = 0;
 		}
+
+		$start_date = $start_date . ' 00:00:00';
+		$final_date = $final_date . ' 23:59:59';
 		
 		///регистрации
 		$registered = db::select(
@@ -60,13 +63,14 @@ class Controller_Site_Cabinet_Statistics extends Controller_Site_Cabinet
 		{
 
 		$payed = db::select(
-						DB::expr('sum(beneficiary_account_balance) as total_payed'), 
+						DB::expr('sum(payment_sum) as total_payed'), 
 						DB::expr('DATE_FORMAT(FROM_UNIXTIME(created_at), \'%d.%m.%Y\') as date')
 					)
-				->from('transactions')
-				->where('payer_id', 'in', db::expr('('.implode(',',$client_ids).')'))
+				->from('payments_client')
+				->where('client_id', 'in', db::expr('('.implode(',',$client_ids).')'))
 				->and_where('created_at', '>=', date(strtotime($start_date)))
 				->and_where('created_at', '<=', date(strtotime($final_date)))
+				->and_where('status', '<>', 'reverted')
 				->group_by('date')
 				->execute()
 				->as_array('date', 'total_payed');
@@ -74,13 +78,14 @@ class Controller_Site_Cabinet_Statistics extends Controller_Site_Cabinet
 		//заработано
 		
 		$earned= db::select(
-						DB::expr('sum(beneficiary_account_balance) + sum(beneficiary_account_hold_balance) as total_payed'), 
+						DB::expr('sum(payment_sum) as total_payed'), 
 						DB::expr('DATE_FORMAT(FROM_UNIXTIME(created_at), \'%d.%m.%Y\') as date')
 					)
-				->from('transactions')
-				->where('beneficiary_id', '=', $this->_user->id)
+				->from('payments_partner')
+				->where('partner_id', '=', $this->_user->id)
 				->and_where('created_at', '>=', date(strtotime($start_date)))
 				->and_where('created_at', '<=', date(strtotime($final_date)))
+				->and_where('status', '<>', 'reverted')
 				->group_by('date')
 				->execute()
 				->as_array('date', 'total_payed');

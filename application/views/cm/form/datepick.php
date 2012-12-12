@@ -20,7 +20,7 @@ defined('SYSPATH') or die('No direct script access.');
 				$( "#from" ).datepicker( "option", "maxDate", selectedDate );
 			}
 		});
-		$( "#from" ).datepicker("setDate", "-7d");
-		$( "#to" ).datepicker("setDate", "0");
+	//	$("#from").datepicker("setDate", "-7d");
+	//	$( "#to" ).datepicker("setDate", "0");
 	});
 </script>

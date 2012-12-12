@@ -13,10 +13,22 @@ class CM_Value_Date implements CM_Value_Interface
 		{
 			$raw_value = NULL;
 		}
-		$this->_date = $raw_value;
+		if (strtotime($raw_value.' 00:00:00'))
+		{
+			$this->_date = $raw_value;
+		}
+		else
+		{
+			$this->_date = date('d.m.Y', $raw_value);
+		}
 	}
 
 	public function get_raw()
+	{
+		return strtotime($this->_date);
+	}
+	
+	public function get_rendered()
 	{
 		return $this->_date;
 	}

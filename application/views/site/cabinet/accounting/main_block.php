@@ -35,28 +35,35 @@ defined('SYSPATH') or die('No direct script access.');
 				<td class="col2">сумма</td>
 				<td class="col3 last">дата</td>
 			</tr>
+			<?php foreach ($payments_as_client as $payment):?>
+				<tr class="tr-yellow">
+					<td class="col1"><?php echo $payment->commentary?></td>
+					<td class="col2">+<?php echo $payment->payment_sum?></td>
+					<td class="col3 last"><?php echo $payment->date?></td>
+				</tr>
+			<?php endforeach;?>
 
-			<tr class="tr-green">
-				<td class="col1">40% процентов за оплату (логин test2)</td>
-				<td class="col2">+2300 руб.</td>
-				<td class="col3 last">14.11.2012</td>
-			</tr>
-			<tr class="tr-yellow">
-				<td class="col1">Вывод средств с баланса (на R3223444345)</td>
-				<td class="col2">-2300 руб.</td>
-				<td class="col3 last">12.11.2012</td>
-			</tr>
-			<tr class="tr-gray">
-				<td class="col1">40% процентов за оплату (логин test2)</td>
-				<td class="col2">+2300 руб.</td>
-				<td class="col3 last">14.11.2012</td>
-			</tr>
+			<?php foreach ($payments_as_partner as $payment):?>
+				<tr class="<?php echo $payment->is_holded ? "tr-gray" : "tr-green" ?>">
+					<td class="col1"><?php echo $payment->commentary?></td>
+					<td class="col2">+<?php echo $payment->payment_sum?></td>
+					<td class="col3 last"><?php echo $payment->date?></td>
+				</tr>
+			<?php endforeach;?>
+			<?php foreach ($payouts as $payout):?>
+				<tr class="tr-yellow">
+					<td class="col1"><?php echo $payout->commentary?></td>
+					<td class="col2"><?php echo $payout->balance_change?></td>
+					<td class="col3 last"><?php echo $payout->date?></td>
+				</tr>
+			<?php endforeach;?>
+
 		</table>
 	</div>
 	<!-- end payment table -->
 
 	<!-- payment navi -->
-		<div class="navi-box">
+<!--		<div class="navi-box">
 			<span>Страницы:</span>
 			<ul>
 				<li class="selected"><a href="#">1</a></li>
@@ -65,7 +72,7 @@ defined('SYSPATH') or die('No direct script access.');
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div class="clear"></div>
+		<div class="clear"></div>-->
 	<!-- end payment navi -->
 
 	<!-- description block -->
