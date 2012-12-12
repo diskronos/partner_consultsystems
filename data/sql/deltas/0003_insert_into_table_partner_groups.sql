@@ -1,3 +1,6 @@
+/*!40101 SET CHARACTER_SET_CLIENT='utf8' */;
+/*!40101 SET NAMES utf8 */;
+
 INSERT INTO 
 	`partner_groups` (`name`, `payout_ratio`, `payment_limit`, `logo`) 
 VALUES ('Junior Partner', 40, 0,'/images/logo-junior-partner.png'),
