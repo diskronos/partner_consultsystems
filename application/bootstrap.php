@@ -116,14 +116,54 @@ Kohana::modules(array(
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
+
+//-----------------------API----------------------------------------------------
+Route::set('api', 'api(/<action>)')
+	->defaults(array(
+		'directory' => 'api',
+		'controller' => 'index',
+		'action' => 'index',
+	));
+
 //---------------------Админка{-------------------------------------------------
+Route::set('admin-client', Kohana::$config->load('extasy.admin_path_prefix').'client(/<action>(/<id>))')
+	->defaults(array(
+		'directory' => 'admin',
+		'controller' => 'client',
+		'action' => 'index',
+	));
+Route::set('admin-money_balance', Kohana::$config->load('extasy.admin_path_prefix').'money/balance(/<action>(/<id>))')
+	->defaults(array(
+		'directory' => 'admin',
+		'controller' => 'money_balance',
+		'action' => 'index',
+	));
+
+Route::set('admin-money_payout', Kohana::$config->load('extasy.admin_path_prefix').'money/payout(/<action>(/<id>))')
+	->defaults(array(
+		'directory' => 'admin',
+		'controller' => 'money_payout',
+		'action' => 'index',
+	));
+Route::set('admin-money_payment_partner', Kohana::$config->load('extasy.admin_path_prefix').'money/payment/partner(/<action>(/<id>))')
+	->defaults(array(
+		'directory' => 'admin',
+		'controller' => 'money_payment_partner',
+		'action' => 'index',
+	));
+Route::set('admin-money_payment_client', Kohana::$config->load('extasy.admin_path_prefix').'money/payment/client(/<action>(/<id>))')
+	->defaults(array(
+		'directory' => 'admin',
+		'controller' => 'money_payment_client',
+		'action' => 'index',
+	));
+
 Route::set('admin-ticket_branch', Kohana::$config->load('extasy.admin_path_prefix').'ticket(/<action>(/<id>))')
 	->defaults(array(
 		'directory' => 'admin',
 		'controller' => 'ticket_branch',
 		'action' => 'index',
 	));
-
 
 Route::set('admin-promo', Kohana::$config->load('extasy.admin_path_prefix').'promo(/<action>)')
 	->defaults(array(
@@ -203,7 +243,7 @@ Route::set('site-template_doc', 'documents/<name>.docx')
 //----------------------Шаблоны-------------------------------------------------
 
 //-----------------------------------------------------------------------------
-Route::set('site-additional', 'additional(/<action>)')
+Route::set('site-additional', 'additional(/<action>(/param))')
 	->defaults(array(
 		'directory' => 'site',
 		'controller' => 'additional',

@@ -38,7 +38,10 @@ class ACL extends Extasy_ACL
 		$this->add_resource('site_cabinet_clients','admin_auth');
 		$this->allow('logged','site_cabinet_clients',array(
 			'index',
-			'new'
+			'new',
+			'ajax_signup_check_name',
+			'ajax_signup_check_email',
+			'ajax_proceed_registration',
 		));
 
 		$this->add_resource('site_cabinet_statistics','admin_auth');

@@ -44,11 +44,11 @@ class Webconsult_Transaction
 //COLLATE='utf8_general_ci'
 //ENGINE=InnoDB;
 
-	static function client_payment($client_id, $payment_sum, $partner_share = TRUE, $status = 'holded')
+	static function client_payment($client_id, $payment_sum, $partner_share = TRUE, $status = 'holded', $transaction_id = NULL)
 	{
 		$db = Database::instance();
 		$db->begin();
-		$client = ORM::factory('user', $client_id);
+		$client = ORM::factory('client', $client_id);
 		$partner = $client->partner;
 
 		try {
@@ -59,6 +59,7 @@ class Webconsult_Transaction
 								'payment_sum' => $payment_sum,
 								'commentary' => 'Клиентский платеж',
 								'status' => $status,
+								'transaction_id' => $transaction_id,
 							))
 					->save();
 
@@ -75,18 +76,17 @@ class Webconsult_Transaction
 									'status' => $status,
 								))
 						->save();
-				$partner->balance = Webconsult_Balance::factory($partner->id)->get_money_balance();
-				$partner->save();
+				Webconsult_Balance::factory($partner)->set_new_balance();
 			}
-			$client->balance = Webconsult_Balance::factory($client->id)->get_money_balance();
-			$client->save();
+	//		Webconsult_Balance::factory($client)->set_new_balance();
 			$db->commit();
 		}
 		catch (Database_Exception $e)
 		{
 			$db->rollback();
-			throw new Exception('Транзакция не удалась, откат');
+			return false;
 		}
+		return true;
 	}
 	
 	static function money_back($transaction_id)
@@ -104,19 +104,18 @@ class Webconsult_Transaction
 				$transaction_company_to_partner->status = 'reverted';
 				$transaction_company_to_partner->save();
 				$partner = $transaction_company_to_partner->partner;
-				$partner->balance = Webconsult_Balance::factory($client->id)->get_money_balance();
-				$partner->save();
+				Webconsult_Balance::factory($partner)->set_new_balance();
 			}
-			$client->balance = Webconsult_Balance::factory($client->id)->get_money_balance();
-			$client->save();
+	//		Webconsult_Balance::factory($client)->set_new_balance();
 
 			$db->commit();
 		}
 		catch (Database_Exception $e)
 		{
 			$db->rollback();
+			return false;
 		}
-
+		return true;
 	}
 
 	static function money_payout_query($partner_id, $payout_sum)
@@ -134,15 +133,15 @@ class Webconsult_Transaction
 									'commentary' => 'Вывод средств с баланса (на ' . $partner->requisites->name .')',
 								))
 						->save();
-			$partner->balance = Webconsult_Balance::factory($partner->id)->get_money_balance();
-			$partner->save();
+			Webconsult_Balance::factory($partner)->set_new_balance();
 			$db->commit();
 		}
 		catch (Database_Exception $e)
 		{
 			$db->rollback();
-			throw new Exception('Транзакция не удалась, откат');
+			return false;
 		}
+		return true;
 	}
 
 	

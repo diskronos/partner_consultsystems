@@ -7,8 +7,8 @@ class Extasy_Model_User extends ORM
 {
 	protected $_has_many = array(
 		'clients' => array(
-			'model' => 'user',
-			'foreign_key' => 'referrer_id',
+			'model' => 'client',
+			'foreign_key' => 'partner_id',
 			),
 		);
 	protected $_belongs_to = array(
@@ -234,5 +234,15 @@ class Extasy_Model_User extends ORM
 	{
 		$ids = array_keys($this->clients->find_all()->as_array('id', NULL));
 		return orm::factory('money_transaction')->where('payor_id', 'in', '(' . implode(',', $ids).')');
+	}
+	
+	public function try_next_level()
+	{
+		$group_id = ORM::factory('partner_group')->get_group_id($this->money_earned);
+		if ($group_id != $this->partner_group_id)
+		{
+			$this->partner_group_id = $group_id;
+			$this->save();
+		}
 	}
 }

@@ -33,21 +33,16 @@ class Model_Partner_Group extends ORM
 		);
 	}
 	
-	public function get_next_level_group()
+	public function get_group_id($money_earned)
 	{
-		$next = FALSE;
-		switch ($this->name)
+		if ($money_earned < 25000)
 		{
-			case 'Junior Partner':
-				$next = 'Premium Partner';
-				break;
-			case '':
-				$next = 'Gold Partner';
-				break;
+			return 1;
 		}
-		return $next ? ORM::factory('partner_group')->where('name', '=', $next)->find() : $next;
+		elseif (($money_earned >= 25000) && ($money_earned < 50000))
+		{
+			return 2;
+		}
+		return 3;
 	}
-
-
-
 }

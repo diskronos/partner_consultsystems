@@ -4,6 +4,11 @@ defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Site_Cabinet_Support extends Controller_Site_Cabinet 
 {
+	public function before() {
+		parent::before();
+		$this->template->active = 'support';
+	}
+
 	protected function check_existance(ORM $item)
 	{
 		if (!$item->loaded())

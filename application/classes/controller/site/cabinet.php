@@ -10,12 +10,7 @@ class Controller_Site_Cabinet extends Controller_Auth
 		$this->template->set_layout('global/global_cabinet');
 
 		$this->template->user = $this->_user;
-		$next_lvl = $this->_user->partner_group->next_level_group;
-		if ($next_lvl)
-		{
-			$this->template->to_next_level = $next_lvl->payment_limit - $this->_user->balance;
-			$this->template->percent_to_next_level = 100 * $this->_user->balance /$next_lvl->payment_limit . '%';
-		}
+		$this->template->group = new Helper_Group($this->_user->money_earned, $this->_user->partner_group_id);
 	}
 	
 	public function action_index()
@@ -25,6 +20,7 @@ class Controller_Site_Cabinet extends Controller_Auth
 	}
 	public function action_materials()
 	{
+		$this->template->active = 'materials';
 		$this->template->page = ORM::factory('static_page')->where('page_name', '=', 'promo')->find();
 		$this->set_view('cabinet/materials');
 	}

@@ -10,6 +10,7 @@ class Controller_Site_Additional extends Controller
 	}
 	public function action_cabinet_menu_top()
 	{
-		
+		$this->template->active = arr::get($_GET, 'active', 'statistics');
 	}
+//	pub
 }

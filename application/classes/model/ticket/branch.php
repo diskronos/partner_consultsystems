@@ -63,15 +63,29 @@ class Model_Ticket_Branch extends ORM
 	{
 		return array(
 			'topic' => 'Тема',
-			'starter_id' => 'Автор',
+			'starter_id' => 'Пользователь',
 			'status' => 'Статус',
 			'new_messages' => 'Новые сообщения',
 		);
 	}
-	
+
+	public function rules()
+	{
+		return array(
+			'starter_id' => array(				//это ник он же логин
+				array('not_empty'),
+			),
+		);
+	}
+
+
 	public function form()
 	{
 		return new Form_Admin_Ticket_Branch($this);
+	}
+	public function create_form()
+	{
+		return new Form_Admin_Ticket_Create($this);
 	}
 	
 	public function get_message_count()

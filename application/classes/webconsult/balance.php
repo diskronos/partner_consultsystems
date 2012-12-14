@@ -7,7 +7,7 @@ class Webconsult_Balance
 	protected $_user = NULL;
 	public function __construct($user_id)
 	{
-		$this->_user = ORM::factory('user', $user_id);
+		$this->_user = is_object($user_id) ? clone $user_id : ORM::factory('user', $user_id);
 	}
 
 	public static function factory($user_id)
@@ -68,6 +68,15 @@ class Webconsult_Balance
 			0
 		);
 	}
+	
+	public function set_new_balance()
+	{
+		$this->_user->balance = $this->get_money_balance();
+		$this->_user->money_earned = $this->get_money_earned();
+		$this->_user->money_paidout = $this->get_money_paidout();
+		$this->_user->save();
+		$this->_user->try_next_level();
+	}
 
 	//select ifnull(sum(payer_account_balance),0) from transactions where payer_id = 1
 
@@ -125,8 +134,7 @@ class Webconsult_Balance
 	
 	protected function db_compile_credit()
 	{
-		return DB::select(DB::expr('(' . $this->db_compile_payouts() .' ) + ( ' . $this->db_compile_payments_as_client() . ')' ))
-					->compile(Database::instance());
+		return $this->db_compile_payouts();
 	}
 	
 	protected function db_compile_balance()

@@ -10,6 +10,7 @@ class Controller_Site_Cabinet_Accounting extends Controller_Site_Cabinet
 		parent::before();
 		$this->_requisites = $this->_user->requisites;
 		$this->template->requisites = $this->_requisites;
+		$this->template->active = 'accounting';
 	}
 	public function get_payout_date()
 	{
@@ -45,12 +46,12 @@ class Controller_Site_Cabinet_Accounting extends Controller_Site_Cabinet
 			$final_date = strtotime($final_date . ' 23:59:59');
 		}
 		
-		$payments_as_client = ORM::factory('money_payment_client')
-				->where('client_id', '=', $this->_user->id)
-				->and_where('status', '<>', 'reverted')
-				->and_where('created_at', '>=', $start_date)
-				->and_where('created_at', '<=', $final_date)
-				->find_all();
+//		$payments_as_client = ORM::factory('money_payment_client')
+//				->where('client_id', '=', $this->_user->id)
+//				->and_where('status', '<>', 'reverted')
+//				->and_where('created_at', '>=', $start_date)
+//				->and_where('created_at', '<=', $final_date)
+//				->find_all();
 
 		$payments_as_partner = ORM::factory('money_payment_partner')
 				->where('partner_id', '=', $this->_user->id)
@@ -65,7 +66,7 @@ class Controller_Site_Cabinet_Accounting extends Controller_Site_Cabinet
 				->and_where('created_at', '<=', $final_date)
 				->find_all();
 
-		$this->template->payments_as_client = $payments_as_client;
+	//	$this->template->payments_as_client = $payments_as_client;
 		$this->template->payments_as_partner = $payments_as_partner;
 
 		$this->template->payouts = $payouts;

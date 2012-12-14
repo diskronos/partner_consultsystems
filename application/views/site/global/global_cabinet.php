@@ -36,9 +36,11 @@
 			<div class="partner-counter">
 				<div class="counter-logo"><img src="<?php echo $user->partner_group->logo?>"></div>
 				<div class="counter-line">
-					<div class="progress-bar" style="width:<?php echo $percent_to_next_level?>"></div>
+					<div class="progress-bar" style="width:<?php echo $group->get_percentage_filled()?>"></div>
 				</div>
-				до следующего уровня <?php echo $to_next_level?> рублей
+				<?php if ($user->partner_group->id != 3):?>
+					до следующего уровня <?php echo $group->get_remaining()?> рублей
+				<?php endif;?>
 			</div>
 			<div class="clear"></div>
 			
@@ -49,7 +51,6 @@
 	<!-- end header -->
 	
 	<div class="inner-partner-container">
-	
 		<?php echo Request::factory(URL::url_to_route('site-additional:cabinet_menu_top'))->execute();?>
 		<!-- payment box -->
 		<?php if (!$user->requisites):?>

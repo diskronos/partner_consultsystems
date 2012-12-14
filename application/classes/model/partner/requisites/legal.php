@@ -60,6 +60,11 @@ class Model_Partner_Requisites_Legal extends ORM
 	);
 
 	protected $_grid_columns = array(
+		'login' => array(
+			'type' => 'template',
+			'template' => '${user.name}',
+		),
+
 		'partner_id' => array(
 			'type' => 'template',
 			'template' => '${user.company_name}',
@@ -96,6 +101,7 @@ class Model_Partner_Requisites_Legal extends ORM
 	{
 		$labels = $this->get_requisites_fullnames();
 		$labels['partner_id'] = "Название компании";
+		$labels['login'] = "Логин";
 		$labels['confirmed'] = "Подтверждено";
 		return $labels;
 	}

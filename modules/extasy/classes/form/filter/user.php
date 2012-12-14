@@ -11,6 +11,7 @@ class Form_Filter_User extends CM_Form_Abstract
 	{
 		$this->add_plugin(new CM_Form_Plugin_ORM_Labels());
 		$this->add_plugin(new CM_Form_Plugin_ORM_Filter_Like('email'));
+		//$this->add_plugin(new CM_Form_Plugin_ORM_Filter_Equals('referrer_id'));
 
 		$this->set_field('email', new CM_Field_String(), 10);
 
@@ -23,8 +24,9 @@ class Form_Filter_User extends CM_Form_Abstract
 			$options[$role] = arr::get(Kohana::$config->load('auth.roles_labels'), $role, $role);
 		}
 
-		$this->set_field('roles', new CM_Field_Select($options));
-
+		$this->set_field('roles', new CM_Field_Select($options),20);
+		//$this->set_field('referrer_id', new CM_Field_Select_ORM_Autocomplete(ORM::factory('user'), 'name'), 5);
+		//$this->get_field('referrer_id')->set_label('Клиенты пользователя');
 		$this->set_method('get');
 	}
 

@@ -35,18 +35,11 @@ defined('SYSPATH') or die('No direct script access.');
 				<td class="col2">сумма</td>
 				<td class="col3 last">дата</td>
 			</tr>
-			<?php foreach ($payments_as_client as $payment):?>
-				<tr class="tr-yellow">
-					<td class="col1"><?php echo $payment->commentary?></td>
-					<td class="col2">+<?php echo $payment->payment_sum?></td>
-					<td class="col3 last"><?php echo $payment->date?></td>
-				</tr>
-			<?php endforeach;?>
 
 			<?php foreach ($payments_as_partner as $payment):?>
-				<tr class="<?php echo $payment->is_holded ? "tr-gray" : "tr-green" ?>">
+				<tr class="tr-<?php echo $payment->color; ?>">
 					<td class="col1"><?php echo $payment->commentary?></td>
-					<td class="col2">+<?php echo $payment->payment_sum?></td>
+					<td class="col2"><?php echo $payment->payment_sum_signed?></td>
 					<td class="col3 last"><?php echo $payment->date?></td>
 				</tr>
 			<?php endforeach;?>

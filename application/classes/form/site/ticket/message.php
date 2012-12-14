@@ -16,6 +16,7 @@ class Form_Site_Ticket_Message extends CM_Form_Abstract
 	protected function after_submit() 
 	{
 		$this->_model->new_messages_user += 1;
+		$this->_model->save();
 	}
 	
 	protected function after_plugin_submit() 

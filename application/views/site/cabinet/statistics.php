@@ -182,13 +182,13 @@ defined('SYSPATH') or die('No direct script access.');
 			</div>
 
 			<div class="earning-box orange">
-				<?php echo $balance->get_money_balance()//$user->balance;?>
+				<?php echo $user->balance//$user->balance;?>
 				<span class="value">руб.</span>
 				<span class="name">на балансе</span>
 			</div>
 
 			<div class="earning-box green">
-				<?php  echo $balance->get_money_earned()?>
+				<?php  echo $user->money_earned?>
 				<span class="value">руб.</span>
 				<span class="name">всего заработано</span>
 			</div>

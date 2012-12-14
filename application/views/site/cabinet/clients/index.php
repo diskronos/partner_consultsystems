@@ -52,23 +52,23 @@
 					</td>
 					<td class="col2">
 						<div class="client-site">
-							<?php echo 'сайт';?>
+							<?php echo $client->site;?>
 						</div>
 					</td>
 					<td class="col3">
-						<?php echo 'тариф';?>
+						<?php echo $client->tariff;?>
 					</td>
 					<td class="col4">
-						<?php echo 'дата чегото';?>
+						<?php echo is_null($client->date_expire) ? '--' : date('d.m.Y', $client->date_expire);?>
 					</td>
 					<td class="col5">
 						<?php echo date( 'd.m.Y',$client->created_at)?>
 					</td>
 					<td class="col6">
-						<?php echo 'сумма всех платежей';?>
+						<?php echo isset($client_payments[$client->id]) ? $client_payments[$client->id]['payed'] : 0;?>
 					</td>
 					<td class="col7 last">
-						<?php echo 'заработано на посане'?>
+						<?php echo isset($partner_payments[$client->id]) ? $partner_payments[$client->id]['earned'] : 0;?>
 					</td>
 
 					

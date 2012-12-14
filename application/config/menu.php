@@ -12,6 +12,7 @@ return array
 		'Служебное' => array(
 			'Настройки' => 'admin-config',
 			'Пользователи' => 'admin-user',
+			'Клиенты' => 'admin-client',
 			'Промо' => 'admin-promo',
 		),
 		'Партнеры' => array(
@@ -25,7 +26,8 @@ return array
 		'Финансы' => array(
 			'Выплаты' => 'admin-money_payout',
 			'Клиентские платежи' => 'admin-money_payment_client',
-		//	'Партнерские отчисления' => 'admin-money_payment_partner',
+			'Партнерские отчисления' => 'admin-money_payment_partner',
+			'Баланс' => 'admin-money_balance',
 		),
 	),
 );

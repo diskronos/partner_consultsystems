@@ -38,12 +38,12 @@ class Controller_Site_Registration extends Extasy_Auth_Controller_Base
 		$this->set_view('registration/signup_form');
 	}
 	
-	public function action_signup_client()
-	{
-		$this->template->referrer_id = Auth::instance()->get_user()->id;
-		$this->template->ref_route = Request::initial()->route()->get_route_str(array());
-		$this->set_view('registration/signup_form');
-	}
+//	public function action_signup_client()
+//	{
+//		$this->template->referrer_id = Auth::instance()->get_user()->id;
+//		$this->template->ref_route = Request::initial()->route()->get_route_str(array());
+//		$this->set_view('registration/signup_form');
+//	}
 	
 	public function action_signup()
 	{
@@ -64,6 +64,21 @@ class Controller_Site_Registration extends Extasy_Auth_Controller_Base
 			$this->set_view('registration/top_block_unlogged');
 		}
 	}
+	
+	public function action_right_block()
+	{
+		$user = Auth::instance()->get_user();
+		if ($user)
+		{
+			$this->template->user = $user;
+			$this->set_view('registration/right_block_logged');
+		}
+		else
+		{
+			$this->set_view('registration/right_block_unlogged');
+		}
+	}
+	
 	
 	public function action_cabinet_top_block_logged()
 	{

@@ -35,7 +35,10 @@ class Controller_Admin_Ticket_Branch extends Controller_Crud
 		$item->new_messages_user = 0;
 		$item->save();
 	}
-	
+	public function get_filter_form(ORM $model) {
+		return new Form_Admin_Filter_Ticket($model);
+	}
+
 	public function action_edit()
 	{
 		parent::action_edit();
@@ -48,8 +51,32 @@ class Controller_Admin_Ticket_Branch extends Controller_Crud
 		{
 			$this->redirect('admin-ticket_branch:close?id='.$this->param('id'));
 		}
-
 	}
+
+	public function action_create()
+	{
+		$this->process_create_form($this->before_create(ORM::factory($this->_model)));
+	}
+	
+	protected function process_create_form(ORM $item)
+	{
+		$this->set_view('crud/form_create');
+
+		if (isset($_POST['cancel']))
+		{
+			$this->redirect($this->get_index_route());
+		}
+
+		$form = $item->create_form();
+
+		if (isset($_POST['submit']) AND $form->submit())
+		{
+			$this->redirect($this->get_index_route());
+		}
+
+		$this->template->form = $form;
+	}
+	
 
 	
 //	public function action_create()

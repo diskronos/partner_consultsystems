@@ -8,7 +8,7 @@ class Model_Money_Payment_Client extends ORM
 	protected $_created_column = array('column' => 'created_at','format'=>TRUE);
 	protected $_belongs_to = array(
 		'client' => array(
-			'model' => 'user',
+			'model' => 'client',
 			'foreign_key'=> 'client_id',
 		),
 	);
