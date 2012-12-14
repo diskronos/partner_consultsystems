@@ -16,6 +16,7 @@ class Form_Admin_Ticket_Branch extends CM_Form_Abstract
 	protected function after_submit() 
 	{
 		$this->_model->new_messages_admin += 1;
+		$this->_model->save();
 	}
 	
 	protected function after_plugin_submit() 
