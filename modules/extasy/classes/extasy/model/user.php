@@ -95,7 +95,7 @@ class Extasy_Model_User extends ORM
 	public function rules()
 	{
 		return array(
-			'login' => array(				//это ник он же логин
+			'name' => array(				//это ник он же логин
 				array('not_empty'),
 				array('min_length', array(':value', 3)),
 				array('max_length', array(':value', 16)),
