@@ -2,6 +2,7 @@
 
 defined('SYSPATH') or die('No direct script access.');
 ?>
+
 <script>
 	function fieldValid(fieldid,text)
 	{
@@ -33,6 +34,30 @@ defined('SYSPATH') or die('No direct script access.');
 		}, "json");
 	}
 
+	function validPass(){
+		$.post("/<?php echo URL::url_to_route('site-cabinet_clients:ajax_signup_check_pass')?>", { v: $("#user_pass").val() },
+		function(data){
+			if(data.result=='error') fieldError('user_pass',data.comment);            
+			if(data.result=='valid') fieldValid('user_pass',data.comment);
+		}, "json");
+	}
+	function validPassAgain(){
+		$.post("/<?php echo URL::url_to_route('site-cabinet_clients:ajax_signup_check_pass_confirm')?>", { v1: $("#user_pass").val(), v2: $("#user_pass_again").val() },
+		function(data){
+			if(data.result=='error') fieldError('user_pass_again',data.comment);            
+			if(data.result=='valid') fieldValid('user_pass_again',data.comment);
+		}, "json");
+	}
+	
+	function validLogin(){
+		$.post("/<?php echo URL::url_to_route('site-cabinet_clients:ajax_signup_check_login')?>", { v: $("#user_login").val() },
+		function(data){
+			if(data.result=='error') fieldError('user_login',data.comment);
+			if(data.result=='valid') fieldValid('user_login',data.comment);
+		}, "json");
+	}
+	
+
 	function signUpSubmit(){
 		$("#loading").show();
 		$.post("/<?php echo URL::url_to_route('site-cabinet_clients:ajax_proceed_registration')?>", $('form').serialize(),
@@ -57,12 +82,23 @@ defined('SYSPATH') or die('No direct script access.');
 	}
 	$(function(){
 		$("#user_name").focus();
+		$("#user_pass").blur(function() {
+			validPass();
+		});
+		$("#user_pass_again").blur(function() {
+			validPassAgain();
+		});
+
 		$("#user_mail").blur(function() {
 			validMail();
 		});
 		$("#user_name").blur(function() {
 			validName();
 		});
+		$("#user_login").blur(function() {
+			validLogin();
+		});
+
 });
 </script>
 <div id="signupblock">
@@ -70,6 +106,14 @@ defined('SYSPATH') or die('No direct script access.');
 <h1>Регистрация клиента в системе WebConsult</h1>
 <form action="/signup/" method="post">
 	<input type="hidden" name="subm" value="1">
+	<div id="user_login_block" class="form_elem">
+		<div class="form_caption_block">логин:</div>
+		<div class="form_input_block"><input class="forminput" type="text" id="user_login" name="login" value=""></div>
+		<div class="form_hint_block">От 3 до 16 символов.<br> Только латинские буквы и цифры</div>
+		<div class="form_error_block"></div>
+	</div>
+	<div class="clear"></div>
+
 	<div id="user_name_block" class="form_elem">
 		<div class="form_caption_block">имя:</div>
 		<div class="form_input_block"><input class="forminput" type="text" id="user_name" name="name" value=""></div>
@@ -83,7 +127,23 @@ defined('SYSPATH') or die('No direct script access.');
 		<div class="form_hint_block">Укажите правильный адрес<br>электронной почты</div>    	
 		<div class="form_error_block"></div>
 	</div> 
+
 	<div class="clear"></div>
+		<div id="user_pass_block" class="form_elem">
+		<div class="form_caption_block">пароль:</div>
+		<div class="form_input_block"><input class="forminput" type="password" id="user_pass" name="password" value=""></div>
+		<div class="form_hint_block">От 6 до 18 символов.</div>
+		<div class="form_error_block"></div>
+	</div>	
+	<div class="clear"></div>
+	<div id="user_pass_again_block" class="form_elem">
+		<div class="form_caption_block">пароль:<br><span style="font-size:12px;">(ещё раз)</span></div>
+		<div class="form_input_block"><input class="forminput" type="password" id="user_pass_again" name="password_confirm" value=""></div>
+		<div class="form_hint_block">Введите, пожалуйста, пароль ещё раз,<br>Для исключения возможности опечатки</div>    	
+		<div class="form_error_block"></div>
+	</div> 
+	<div class="clear"></div>
+
 
 	<div id="user_site_block" class="form_elem">
 		<div class="form_caption_block">сайт:</div>

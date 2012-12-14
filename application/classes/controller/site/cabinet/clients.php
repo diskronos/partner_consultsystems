@@ -9,11 +9,22 @@ class Controller_Site_Cabinet_Clients extends Controller_Site_Cabinet
 		parent::before();
 		$this->template->active = 'clients';
 	}
+	
+	public function set_search(ORM $clients, $search_string)
+	{
+		return $clients
+			->where('login', 'like', "%$search_string%")
+			->or_where('site', 'like', "%$search_string%");
+	}
 
 	public function action_index()
 	{
-		$clients = $this->_user->clients->find_all();
+		$clients = $this->_user->clients;
+		$search_string = arr::get($_GET, 'search', '');
+		$this->set_search($clients, $search_string);
+		$clients = $clients->find_all();
 		$this->template->clients = $clients;
+
 		if ($clients->count())
 		{
 			$clients_ids = array_keys($clients->as_array('id', NULL));
@@ -98,6 +109,78 @@ class Controller_Site_Cabinet_Clients extends Controller_Site_Cabinet
 				)
 			);
 
+		exit;
+		
+	}
+	public function action_ajax_signup_check_pass()
+	{
+		if (!Request::$initial->is_ajax()) exit();
+		$password = arr::get($_POST, 'v', '');
+
+		$validation = Validation::factory(array('password' => $password))
+			->rule('password', 'not_empty')
+			->rule('password', 'min_length', array(':value', 6))
+			->rule('password', 'max_length', array(':value', 18));
+
+		$validation->check();
+		$errors = $validation->errors('registration');
+
+		echo json_encode(
+				array(
+					'result' => empty($errors) ? 'valid' : 'error',
+					'comment' => empty($errors) ? 'Вы можете использовать этот пароль' : $errors['password'],
+					)
+				);
+		exit;
+	}
+	
+	public function action_ajax_signup_check_pass_confirm()
+	{
+		if (!Request::$initial->is_ajax()) exit();
+
+		$validation = Validation::factory(array('password' => arr::get($_POST, 'v1', ''), 'password_confirm' => arr::get($_POST, 'v2', '')))
+			->rule('password_confirm', 'not_empty')
+			->rule('password_confirm', 'min_length', array(':value', 6))
+			->rule('password_confirm', 'max_length', array(':value', 18))
+			->rule('password_confirm', 'matches', array(':validation', 'password', ':field'));
+
+		$validation->check();
+		$errors = $validation->errors('registration');
+
+		echo json_encode(
+			array(
+				'result' => empty($errors) ? 'valid' : 'error',
+				'comment' => empty($errors) ? 'Пароли совпадают' : $errors['password_confirm'],
+				)
+			);
+		exit;
+		
+	}
+	
+	public function action_ajax_signup_check_login()
+	{
+		if (!Request::$initial->is_ajax()) exit();
+		$login = arr::get($_POST, 'v', '');
+		$validation = Validation::factory(array('login' => $login))
+			->rule('login', 'not_empty')
+			->rule('login', 'min_length', array(':value', 3))
+			->rule('login', 'max_length', array(':value', 16))
+			->rule('login', 'regex', array(':value', '#^[a-z0-9\pL ]+$#iu'));
+
+		$validation->check();
+
+		if (orm::factory('client')->where('login', '=', $login)->find()->loaded())
+		{
+			$validation->error('login', 'in_use');
+		}
+
+		$errors = $validation->errors('registration');
+		echo json_encode(
+				array(
+					'result' => empty($errors) ? 'valid' : 'error',
+					'comment' => empty($errors) ? 'Вы можете использовать этот логин' : $errors['login'],
+					)
+				);
 		exit;
 		
 	}

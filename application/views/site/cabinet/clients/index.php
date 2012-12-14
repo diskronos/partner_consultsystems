@@ -1,14 +1,27 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 ?>
+<script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#client-table").tablesorter();
+		$('#sub').click(function(){
+			$input = $('input[name=search]');
+			if ($input.val() == 'поиск по логину или сайту...')
+			{
+				$input.val('');
+			}
+		});
+	});
+</script>
 <!-- clients block -->
 <div class="sk-clients-block">
 
 	<!-- search box -->
 	<div class="search-box">
 		<div class="search-line">
-			<form action="">
-				<input type="button" class="button" value="" />
-				<input type="text" class="text" onfocus="if(this.value=='поиск по логину или сайту...') this.value=''" onblur="if(this.value=='') this.value='поиск по логину или сайту...';" value="поиск по логину или сайту..."/>
+			<form action="" method="get" id="search-form">
+				<input type="submit" class="button" value="" id="sub"/>
+				<input type="text" name="search" class="text" onfocus="if(this.value=='поиск по логину или сайту...') this.value=''" onblur="if(this.value=='') this.value='поиск по логину или сайту...';" value="поиск по логину или сайту..."/>
 			</form>
 			<div class="clear"></div>
 		</div>
@@ -22,16 +35,19 @@
 
 	<!-- clients table -->
 	<div class="clients-table">
-		<table>
-			<tr>
-				<td class="col1">логин</td>
-				<td class="col2">сайты</td>
-				<td class="col3">тариф</td>
-				<td class="col4">дата.откл.</td>
-				<td class="col5">дата рег.<img src="/images/table-arrow.png"/></td>
-				<td class="col6">платежей</td>
-				<td class="col7 last">заработано</td>
-			</tr>
+		<table id="client-table">
+			<thead>
+				<tr>
+					<th class="col1">логин</th>
+					<th class="col2">сайты</th>
+					<th class="col3">тариф</th>
+					<th class="col4">дата.откл.</th>
+					<th class="col5">дата рег.<img src="/images/table-arrow.png"/></th>
+					<th class="col6">платежей</th>
+					<th class="col7 last">заработано</th>
+				</tr>
+			</thead>
+			<tbody>
 <!--			<tr class="tr-light-green">
 				<td class="col1">test1</td>
 				<td class="col2">
@@ -48,7 +64,7 @@
 			<?php foreach ($clients as $client):?>
 				<tr class="tr-light-green">
 					<td class="col1">
-						<?php echo $client->name?>
+						<?php echo $client->login?>
 					</td>
 					<td class="col2">
 						<div class="client-site">
@@ -77,6 +93,7 @@
 				<tr class="tr-light-yellow">
 				<tr class="tr-light-pink">-->
 			<?php endforeach;?>
+			</tbody>
 		</table>
 	</div>
 	<!-- end clients table -->

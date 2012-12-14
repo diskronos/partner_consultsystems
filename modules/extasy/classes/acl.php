@@ -40,6 +40,8 @@ class ACL extends Extasy_ACL
 			'index',
 			'new',
 			'ajax_signup_check_name',
+			'ajax_signup_check_pass',
+			'ajax_signup_check_pass_confirm',
 			'ajax_signup_check_email',
 			'ajax_proceed_registration',
 		));

@@ -1,0 +1,2 @@
+ALTER TABLE `clients`
+	ADD COLUMN `login` VARCHAR(255) NOT NULL AFTER `id`;

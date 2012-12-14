@@ -72,7 +72,7 @@ class Webconsult_Transaction
 									'partner_id' => $partner->id,
 									'payment_sum' => $partner_sum,
 									'client_payment_id' => $transaction_client_to_company->id,
-									'commentary' => $partner->partner_group->payout_ratio . '% процентов за оплату (логин ' . $client->name . ')',
+									'commentary' => $partner->partner_group->payout_ratio . '% процентов за оплату (логин ' . $client->login . ')',
 									'status' => $status,
 								))
 						->save();
