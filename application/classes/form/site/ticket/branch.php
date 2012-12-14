@@ -15,7 +15,7 @@ class Form_Site_Ticket_Branch extends CM_Form_Abstract
 	}
 
 	
-	protected function after_submit() 
+	protected function populate() 
 	{
 		$this->_model->new_messages_user = 1;
 		$this->_model->starter_id = Auth::instance()->get_user()->id;
