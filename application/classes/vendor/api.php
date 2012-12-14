@@ -53,14 +53,17 @@ class Vendor_Api
 		return new Vendor_Api($uri);
 	}
 	
-	public function send_message_client_registered($partner_id, $client_id, $name, $email, $site = NULL, $tariff =NULL)
+	public function send_message_client_registered($partner_id, $client_id, $name, $login, $email, $site = NULL, $tariff =NULL)
 			//возвращает ответ сервера 200 - ок
+			//403 - не прошел сертификат
+			//422 - ошибка данных, в теле json_encode(массив ошибок)
 	{
 		return $this->send_post(
 					'register_client',
 					array(
 						'partner_id' => $partner_id,
 						'foreign_id' => $client_id,
+						'login' => $login,
 						'name' => $name,
 						'email' => $email,
 						'site' => $site,
@@ -71,6 +74,8 @@ class Vendor_Api
 	
 	public function send_message_client_payment($client_id, $payment_sum, $transaction_id)
 			//возвращает ответ сервера 200 - ок
+			//403 - не прошел сертификат
+			//422 - ошибка данных, в теле json_encode(массив ошибок)
 	{
 		return $this->send_post(
 					'register_payment',

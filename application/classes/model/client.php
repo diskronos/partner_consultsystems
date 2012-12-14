@@ -44,7 +44,7 @@ class Model_Client extends ORM
 	public function rules()
 	{
 		return array(
-			'name' => array(				//это ник он же логин
+			'login' => array(				//это ник он же логин
 				array('not_empty'),
 //				array('min_length', array(':value', 3)),
 //				array('max_length', array(':value', 16)),
@@ -55,6 +55,17 @@ class Model_Client extends ORM
 				array('not_empty'),
 				array('email'),
 				array(array($this, 'unique'), array('email', ':value')),
+			),
+			'name' => array(
+				array('not_empty'),
+			),
+			'foreign_id' => array(
+				array('numeric'),
+				array('range', array(':value', 0, 9999999999)),
+			),
+			'partner_id' => array(
+				array('numeric'),
+				array('range', array(':value', 0, 9999999999)),
 			),
 		);
 	}
