@@ -9,19 +9,24 @@ return array(
 	'date'          => ':field must be a date',
 	'decimal'       => ':field must be a decimal with :param2 places',
 	'digit'         => ':field must be a digit',
-	'email'         => ':field must be a email address',
+	'email'         => 'Поле ":field" должно содержать email адрес',
 	'email_domain'  => ':field must contain a valid email domain',
 	'equals'        => ':field must equal :param2',
 	'exact_length'  => ':field must be exactly :param2 characters long',
 	'in_array'      => ':field must be one of the available options',
 	'ip'            => ':field must be an ip address',
-//	'matches'       => ':field must be the same as :param2',
-	'min_length'    => ':field must be at least :param2 characters long',
-	'max_length'    => ':field must not exceed :param2 characters long',
-	'not_empty'     => ':field must not be empty',
-	'numeric'       => ':field must be numeric',
+	'matches'       => 'Поле ":field" должно совпадать с полем ":param2"',
+	'min_length'    => 'Поле ":field" должно содержать не менее :param2 символов',
+	'max_length'    => 'Поле ":field" должно содержать не более :param2 символов',
+	'not_empty'     => 'Поле ":field" должно быть заполнено',
+	'numeric'       => 'Поле ":field" должно быть числом',
 	'phone'         => ':field must be a phone number',
-	'range'         => ':field must be within the range of :param2 to :param3',
-	'regex'         => ':field does not match the required format',
+	'range'         => 'Поле ":field" должно содержать число в пределах от :param2 до :param3',
+	'regex'         => 'Поле ":field" не удовлетворяет указанному формату',
 	'url'           => ':field must be a url',
+	'user' => array(
+		'name' => array(
+			'unique' => "Превед"
+		)
+	),
 );

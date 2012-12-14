@@ -7,7 +7,7 @@ defined('SYSPATH') or die('No direct script access.');
 	<!-- warning box -->
 	<div class="warning-box">
 			<div class="inner-warning">
-				Ваш аккаунт не активирован!
+				Не указаны реквизиты!
 				<span>Укажите WMR кошелек для вывода средств</span>
 			</div>
 	</div>

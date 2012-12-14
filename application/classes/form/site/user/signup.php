@@ -13,12 +13,13 @@ class Form_Site_User_Signup extends CM_Form_Abstract
 		$this->set_field('company_name', new CM_Field_String());
 		$this->set_field('password', new CM_Field_Password());
 		$this->set_field('password_confirm', new CM_Field_Password());
+		$this->set_field('fullname', new CM_Field_String());
 		$this->add_plugin(new CM_Form_Plugin_Validate(Model_User::get_password_validation()));
 	}
 	protected function populate() 
-		{
-			$this->_model->fullname = $this->get_field('name')->get_value()->get_raw();
-		}
+	{
+		//$this->_model->fullname = $this->get_field('name')->get_value()->get_raw();
+	}
 
 	protected function after_submit() 
 	{

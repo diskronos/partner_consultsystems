@@ -13,15 +13,7 @@
 		WebConsult - онлайн консультант для сайта, который позволяет общаться с клиентами в реальном времени, при этом клиенту нужно всего-лишь нажать на кнопку вызова консультанта.
 	</div>
 	<!-- end programm box -->
-
-	<!-- login box -->
-	<div class="login-box">
-		<div class="login-button">
-			<a href="#">Вход для партнеров</a>
-		</div>
-		<a href="#">не зарегистрированы?</a>
-	</div>
-	<!-- end login box -->
+	<?php echo Request::factory(URL::url_to_route('site-registration:right_login_block'))->execute();?>
 
 	<div class="clear"></div>
 </div>
@@ -267,7 +259,7 @@
 
 	<!-- right column -->
 	<div class="right-column">
-			<?php echo Request::factory(URL::url_to_route('site-registration:signup_block'))->execute();?>
+		<?php echo Request::factory(URL::url_to_route('site-registration:signup_block'))->execute();?>
 	</div>
 	<!-- end right column -->
 

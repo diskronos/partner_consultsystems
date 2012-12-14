@@ -14,43 +14,55 @@ class Controller_Site_Registration extends Extasy_Auth_Controller_Base
 	}
 	protected function set_signup_form()
 	{
-		$signup_form = new Form_Site_User_Signup(ORM::factory('user'));
-		if (isset($_POST['signup']) AND $signup_form->submit())
+		$form = new Form_Site_User_Signup(ORM::factory('user'));
+		if (isset($_POST['signup']))
 		{
-			parent::do_logout();
-			$_POST['login'] = true;
-			$_POST['remember'] = false;
-			parent::do_login();
-			$this->redirect('site-index');
+			if ( $form->submit())
+			{
+				parent::do_logout();
+				$_POST['login'] = true;
+				$_POST['remember'] = false;
+				parent::do_login();
+				$this->redirect('site-index');
+			}
+			else 
+			{
+				$this->template->error_message = implode('\n', $form->get_errors());
+			}
 		}
-		$this->template->signup_form = $signup_form;
+		$this->template->form = $form;
 	}
 //-------------Виды регистрации--------------------------------------------
 	public function action_signup_block()
 	{
+		if (Auth::instance()->get_user())
+		{
+			$this->set_view('index/empty');
+			return;
+		}
 		$this->set_signup_form();
 		$this->set_view('registration/signup_block');
 	}
 
-	public function action_signup_form()
+	
+	public function action_signup()
 	{
 		$this->set_signup_form();
 		$this->set_view('registration/signup_form');
 	}
-	
-//	public function action_signup_client()
-//	{
-//		$this->template->referrer_id = Auth::instance()->get_user()->id;
-//		$this->template->ref_route = Request::initial()->route()->get_route_str(array());
-//		$this->set_view('registration/signup_form');
-//	}
-	
-	public function action_signup()
-	{
-		$this->template->ref_route = 'site-index';
-		$this->set_view('registration/signup_form');
-	}
 //---------------Виды регистрации---------------------------------------------
+	public function action_right_login_block()
+	{
+		$user = Auth::instance()->get_user();
+		if ($user)
+		{
+			$this->set_view('index/empty');
+		}
+		else
+		{
+			$this->set_view('registration/right_block_unlogged');
+		}
+	}
 	public function action_top_login_block()
 	{
 		$user = Auth::instance()->get_user();
@@ -64,22 +76,8 @@ class Controller_Site_Registration extends Extasy_Auth_Controller_Base
 			$this->set_view('registration/top_block_unlogged');
 		}
 	}
-	
-	public function action_right_block()
-	{
-		$user = Auth::instance()->get_user();
-		if ($user)
-		{
-			$this->template->user = $user;
-			$this->set_view('registration/right_block_logged');
-		}
-		else
-		{
-			$this->set_view('registration/right_block_unlogged');
-		}
-	}
-	
-	
+
+
 	public function action_cabinet_top_block_logged()
 	{
 		$this->template->user = Auth::instance()->get_user();

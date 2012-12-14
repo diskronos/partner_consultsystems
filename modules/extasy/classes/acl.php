@@ -13,6 +13,7 @@ class ACL extends Extasy_ACL
 
 		$this->allow('guest','site_registration',array(
 			'top_login_block',
+			'right_login_block',
 			'ajax_check_login',
 			'signup_block',
 			'signup',
@@ -26,7 +27,7 @@ class ACL extends Extasy_ACL
 			'ajax_signup_check_email',
 			'ajax_signup_check_name',
 			'ajax_proceed_registration',
-			'reset_password'
+			'reset_password',
 			)
 		);
 		$this->allow('logged', 'site_registration',array('cabinet_top_block_logged', 'signup_client'));

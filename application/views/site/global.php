@@ -25,8 +25,9 @@
 </head>
 
 <body>
-	
 		<div id="logobar">
+			<div align="right">
+			</div>
 			<div id="logo">
 				<a href="/"><img src="/images/logo.png" border="0" alt="WebConsult - онлайн консультант для сайта" /></a>
 				<div class="logodesc">онлайн консультант для сайта</div>

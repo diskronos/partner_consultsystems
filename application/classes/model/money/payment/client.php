@@ -35,13 +35,13 @@ class Model_Money_Payment_Client extends ORM
 			'title' => '${revert_rendered}',
 		),
 
-//		'edit' => array(
-//			'width' => '50',
-//			'type' => 'link',
-//			'route_str' => 'admin-money_payment_client:edit?id=${id}',
-//			'title' => '[*]',
-//			
-//		),
+		'edit' => array(
+			'width' => '50',
+			'type' => 'link',
+			'route_str' => 'admin-money_payment_client:edit?id=${id}',
+			'title' => '[*]',
+			
+		),
 		
 		'delete' => array(
 			'width' => '50',

@@ -53,7 +53,7 @@
 	<div class="inner-partner-container">
 		<?php echo Request::factory(URL::url_to_route('site-additional:cabinet_menu_top'))->execute();?>
 		<!-- payment box -->
-		<?php if (!$user->requisites):?>
+		<?php if ($user->status == 'legal' AND !$user->requisites):?>
 			<div class="sk-payment-box">
 				<div class="inner-payment">
 					<img src="/images/payment-img.png"/>

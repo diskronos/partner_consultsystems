@@ -30,4 +30,8 @@ class Controller_Admin_Money_Payment_Client extends Controller_Crud
 	{
 		Webconsult_Transaction::money_back($item->id);
 	}
+	public function action_index() {
+		parent::action_index();
+//		Navigation::instance()->actions()->clear();
+	}
 }

@@ -88,6 +88,7 @@ class Extasy_Model_User extends ORM
 			'send_orders' => 'Отправлять заказы на почту',
 			'id' => 'ID',
 			'status' => 'Статус',
+			'fullname' => 'Контактное лицо'
 		);
 	}
 
