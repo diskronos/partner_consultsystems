@@ -90,8 +90,8 @@ class CM_Form_Abstract implements CM_Fieldschema_Interface
 			{
 				$plugin->after_submit($this);
 			}
+			$this->after_plugin_submit();
 		}
-		$this->after_plugin_submit();
 
 		return $valid;
 	}
