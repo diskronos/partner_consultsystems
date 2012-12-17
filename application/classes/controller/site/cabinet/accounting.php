@@ -10,7 +10,6 @@ class Controller_Site_Cabinet_Accounting extends Controller_Site_Cabinet
 		parent::before();
 		$this->_requisites = $this->_user->requisites;
 		$this->template->requisites = $this->_requisites;
-	//	$this->template->active = 'accounting';
 	}
 	public function get_payout_date()
 	{
@@ -45,13 +44,6 @@ class Controller_Site_Cabinet_Accounting extends Controller_Site_Cabinet
 			$start_date = strtotime($start_date . ' 00:00:00');
 			$final_date = strtotime($final_date . ' 23:59:59');
 		}
-		
-//		$payments_as_client = ORM::factory('money_payment_client')
-//				->where('client_id', '=', $this->_user->id)
-//				->and_where('status', '<>', 'reverted')
-//				->and_where('created_at', '>=', $start_date)
-//				->and_where('created_at', '<=', $final_date)
-//				->find_all();
 
 		$payments_as_partner = ORM::factory('money_payment_partner')
 				->where('partner_id', '=', $this->_user->id)
@@ -66,7 +58,6 @@ class Controller_Site_Cabinet_Accounting extends Controller_Site_Cabinet
 				->and_where('created_at', '<=', $final_date)
 				->find_all();
 
-	//	$this->template->payments_as_client = $payments_as_client;
 		$this->template->payments_as_partner = $payments_as_partner;
 
 		$this->template->payouts = $payouts;
@@ -107,17 +98,32 @@ class Controller_Site_Cabinet_Accounting extends Controller_Site_Cabinet
 	{
 	}
 
-	public function show_requisites_block()
+	public function set_payout_block()
 	{
-		$this->template->set_layout(NULL);
+		$balance = Webconsult_Balance::factory($this->_user->id);
+
+		$balance_available = $balance->get_money_available();
+		if (isset($_POST['payout_submit']) AND ($balance_available > 0))
+		{
+			Webconsult_Transaction::money_payout_query(
+				$this->_user->id, 
+				$balance_available
+			);
+			$this->redirect('site-cabinet_accounting');
+		}
+		
+		$this->template->current_balance = $balance->get_money_balance();
+		$this->template->available_balance = $balance_available;
+		$this->set_view('cabinet/accounting/payout_block_' . $this->_user->status);
+	}
+
+	public function set_requisites_block()
+	{
 		$status = $this->_user->status;
 		
-		$model_name = 'partner_requisites_' . $status;
 		$form_class = 'Form_Site_Partner_Requisites_' . ucfirst($status);
 		$action_name = 'partner_' . $status;
-		$view_name = 'cabinet/accounting/requisites_block_' . $status;
-
-		$requisites = ORM::factory($model_name);
+		$requisites = $this->_user->requisites_ORM;
 		$form = new $form_class($requisites);
 
 		if (isset($_POST['send_reqs']))
@@ -126,48 +132,24 @@ class Controller_Site_Cabinet_Accounting extends Controller_Site_Cabinet
 			{
 				$this->template->form_error = true;
 			}
+			else 
+			{
+				$this->redirect('site-cabinet_accounting');
+			}
 		}
 		$this->template->form = $form;
 		$this->$action_name();
-		$this->set_view($view_name);
 	}
-	
-	public function show_payout_block()
-	{
-		$balance = Webconsult_Balance::factory($this->_user->id);
-		$form = new Form_Site_Partner_Payout(
-				ORM::factory('money_payout'));
-		if (isset($_POST['payout_sum']))
-		{
-			if (!$form->submit())
-			{
-				$this->template->form_error = 'Неверно введена сумма';
-			}
-			else
-			{
-			//	$this->template->form_warning = 'Запрос отправлен';
-				$this->redirect(Request::$initial->route()->get_name());
-			}
-		}
-		
-		$this->template->balance = $balance;
-		$this->template->form_payout = $form;
-		$this->set_view('cabinet/accounting/payout_block_' . $this->_user->status);
-	}
-	
 	
 	public function action_additional_block()
 	{
+		$this->template->set_layout(NULL);
+
 		$this->get_payout_date();
 		$this->template->set_layout(NULL);
-		if (($this->_requisites) AND ($this->_requisites->confirmed))
-		{
-			$this->show_payout_block();
-		}
-		else
-		{
-			$this->show_requisites_block();
-		}
+		$this->set_requisites_block();
+		$this->set_payout_block();
+		$this->set_view('cabinet/accounting/additional_block_' . $this->_user->status);
 	}
 }
 

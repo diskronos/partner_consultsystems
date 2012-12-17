@@ -11,7 +11,7 @@ class Form_Site_Partner_Payout extends CM_Form_Abstract
 		$validation = Validation::factory(array())
 					->rule('payout_sum', 'not_empty', NULL)
 					->rule('payout_sum', 'numeric', NULL)
-					->rule('payout_sum', 'range', array(':value', 0, $max_value));
+					->rule('payout_sum', 'range', array(':value', 1, $max_value));
 		$this->add_plugin(new CM_Form_Plugin_Validate($validation));
 		$this->set_field('payout_sum', new CM_Field_String());
 	}

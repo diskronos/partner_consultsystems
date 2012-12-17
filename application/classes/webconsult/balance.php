@@ -61,7 +61,7 @@ class Webconsult_Balance
 	public function get_money_available()
 	{
 		return arr::get(
-			db::query(Database::SELECT, DB::expr('SELECT( (' .$this->db_compile_payments_as_partner() . ') - ('. $this->db_compile_holded_payments_as_partner(). ')) as result'))
+			db::query(Database::SELECT, DB::expr('SELECT( (' .$this->db_compile_payments_as_partner() . ') - ('. $this->db_compile_holded_payments_as_partner(). ') - (' . $this->db_compile_payouts() . ')) as result'))
 				->execute()
 				->current(),
 			'result',

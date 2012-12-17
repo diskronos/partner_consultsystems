@@ -226,6 +226,12 @@ class Extasy_Model_User extends ORM
 
 		return ($result->loaded())? $result : FALSE;
 	}
+	
+	public function get_requisites_ORM()
+	{
+		return orm::factory('partner_requisites_' . $this->status)
+				->where('partner_id', '=', $this->id)->find();
+	}
 	public function get_status_rendered()
 	{
 		return $this->get_rendered('status');

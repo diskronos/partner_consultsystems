@@ -12,8 +12,10 @@ class Controller_Site_Cabinet_Clients extends Controller_Site_Cabinet
 	public function set_search(ORM $clients, $search_string)
 	{
 		return $clients
+			->where_open()
 			->where('login', 'like', "%$search_string%")
-			->or_where('site', 'like', "%$search_string%");
+			->or_where('site', 'like', "%$search_string%")
+			->where_close();
 	}
 
 	public function action_index()

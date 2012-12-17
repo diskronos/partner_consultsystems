@@ -11,6 +11,21 @@
 				$input.val('');
 			}
 		});
+		$('input[name=search]').bind( 'keyup change', function(){
+			$("#client-table tbody tr").each(function(){
+				var search_str = $('input[name=search]').val();
+				if (($(this).children('.col1').html().search(new RegExp(search_str ,'gi')) != -1) ||
+					($(this).children('.col2').html().search(new RegExp(search_str ,'gi')) != -1))
+				{
+					$(this).show();
+				}
+				else
+				{
+					$(this).hide();
+				}
+				
+			});
+		});
 	});
 </script>
 <!-- clients block -->

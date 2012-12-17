@@ -10,12 +10,13 @@ class Form_Site_Partner_Requisites_Individual extends CM_Form_Abstract //legal -
 	{
 		$this->_model = $param;
 		$this->add_plugin(new CM_Form_Plugin_ORM(NULL,NULL));
-		$this->set_field('wmz_purse_number', new CM_Field_String());
+
+		$field_class = $this->_model->loaded() ? 'CM_Field_Label' : 'CM_Field_String';
+		$this->set_field('wmz_purse_number', new $field_class());
 	}
 	
 	public function after_submit() 
 	{
 		$this->_model->partner_id = Auth::instance()->get_user()->id;
 	}
-	
 }

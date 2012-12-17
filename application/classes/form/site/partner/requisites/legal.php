@@ -29,10 +29,10 @@ class Form_Site_Partner_Requisites_Legal extends CM_Form_Abstract //legal - юр
 	{
 		$this->_model = $param;
 		$this->add_plugin(new CM_Form_Plugin_ORM(NULL,NULL));
-	
 		foreach (array_keys($this->_model->requisites_names) as $requsite_name)
 		{
-			$this->set_field($requsite_name, new CM_Field_String());
+			$field_class = $this->_model->loaded() ? 'CM_Field_Label' : 'CM_Field_String';
+			$this->set_field($requsite_name, new $field_class());
 		}
 	}
 	
