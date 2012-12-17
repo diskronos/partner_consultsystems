@@ -23,7 +23,7 @@ class Controller_Site_Registration extends Extasy_Auth_Controller_Base
 				$_POST['login'] = true;
 				$_POST['remember'] = false;
 				parent::do_login();
-				$this->redirect('site-index');
+				$this->redirect('site-cabinet');
 			}
 			else 
 			{
@@ -35,11 +35,6 @@ class Controller_Site_Registration extends Extasy_Auth_Controller_Base
 //-------------Виды регистрации--------------------------------------------
 	public function action_signup_block()
 	{
-		if (Auth::instance()->get_user())
-		{
-			$this->set_view('index/empty');
-			return;
-		}
 		$this->set_signup_form();
 		$this->set_view('registration/signup_block');
 	}
@@ -53,15 +48,7 @@ class Controller_Site_Registration extends Extasy_Auth_Controller_Base
 //---------------Виды регистрации---------------------------------------------
 	public function action_right_login_block()
 	{
-		$user = Auth::instance()->get_user();
-		if ($user)
-		{
-			$this->set_view('index/empty');
-		}
-		else
-		{
-			$this->set_view('registration/right_block_unlogged');
-		}
+		$this->set_view('registration/right_block_unlogged');
 	}
 	public function action_top_login_block()
 	{
@@ -284,10 +271,15 @@ class Controller_Site_Registration extends Extasy_Auth_Controller_Base
 			catch (ErrorException $e){}
 			if (empty($_POST['referrer_id']))
 			{
-				$_POST['login'] = true;
-				$_POST['remember'] = 0;
-				$this->do_login();
 			}
+			$_POST['login'] = true;
+			$_POST['remember'] = 0;
+			if ($this->do_login())
+			{
+				$this->redirect('site-cabinet');
+			}
+			
+
 		}
 
 		echo json_encode(

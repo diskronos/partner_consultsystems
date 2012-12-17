@@ -25,7 +25,7 @@ function checkLogin(){
 		else
 		{
 			$("#loginerr").html('<table><tr><td width="32" height="23"><img src="/images/valid.png" /></td><td>Перенаправление...</td></tr></table>');
-			window.location.href="/";
+			window.location.href="/<?php echo URL::url_to_route('site-cabinet')?>";
 		}
 	},"json");
 }
@@ -34,12 +34,17 @@ function closeLogin()
 	{
 		$("#logindialog").fadeOut(100);
 	}
+	$(document).ready(function(){
+		$(".partner-login-popup").bind('keyup', function (event){
+			if (event.keyCode == 13) checkLogin();
+		});
+	});
 </script>
 <div class="login-box">
 	<div class="login-button">
 		<a href="javascript:showLogin();">Вход для партнеров</a>
 	</div>
-	<a href="/<?php echo Url::url_to_route('site-registration:signup');?>">не зарегистрированы?</a>
+<!--	<a href="/<?php //echo Url::url_to_route('site-registration:signup');?>">не зарегистрированы?</a>-->
 </div>
 
 <!-- popup login_form -->
