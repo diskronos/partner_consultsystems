@@ -3,6 +3,8 @@
 defined('SYSPATH') or die('No direct script access.');
 
 ?>
+<?php echo HTML::style('css/jquery.ui.datepicker.min.css');?>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		$( "#from" ).datepicker({

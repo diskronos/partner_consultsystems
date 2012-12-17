@@ -8,7 +8,7 @@
 	<meta name="keywords" content="<?php if (isset($keywords)) echo $keywords;?>" />
 	<meta name="description" content="<?php if (isset($description)) echo $description;?>" />
 	<?php echo HTML::style('css/main.css');?>
-	<?php echo HTML::style('extasy/css/jquery-ui-1.8.23.custom.css');?>
+	<?php echo HTML::style('css/jquery-ui.min.css');?>
 	<?php echo HTML::script('js/jquery-1.6.2.min.js')?>
 	<?php echo HTML::script('js/jquery-ui-1.8.24.custom.min.js')?>
 	<?php echo HTML::script('js/tabs.js')?>

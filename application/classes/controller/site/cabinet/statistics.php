@@ -104,7 +104,8 @@ class Controller_Site_Cabinet_Statistics extends Controller_Site_Cabinet
 		$this->template->registered = $registered;
 		$this->template->payed = $payed;
 		$this->template->earned = $earned;
-		
+
+		$dates = array_combine(array_map(function($var){ return date('d.m', strtotime($var));},array_keys($dates)), array_values($dates));
 		$this->template->graph_dates = json_encode(array_keys($dates));
 		$this->template->graph_earned = json_encode(array_values($earned), JSON_NUMERIC_CHECK);
 		$this->template->graph_payed = json_encode(array_values($payed), JSON_NUMERIC_CHECK);

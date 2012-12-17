@@ -16,6 +16,20 @@ defined('SYSPATH') or die('No direct script access.');
 				xAxis: {
 					categories: <?php echo $graph_dates?>
 				},
+				yAxis: {
+					min: 0,
+					minRange: 100,
+					title: {
+						text: 'Сумма платежей'
+					}
+//					,
+//					plotLines: [{
+//						value: 0,
+//						width: 1,
+//						color: '#808080'
+//					}]
+				},
+
 				title: {
 					text: 'График клиентских платежей',
 					x: -20 //center
