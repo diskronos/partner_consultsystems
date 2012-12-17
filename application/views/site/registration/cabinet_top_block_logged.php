@@ -14,7 +14,7 @@ defined('SYSPATH') or die('No direct script access.');
 	</div>
 
 	<div class="top-links">
-		<a href="/<?php echo URL::url_to_route('site-profile');?>" class="profile"><img src="/images/user-button.png"/>профиль</a>
+		<a href="/<?php echo URL::url_to_route('site-cabinet:profile');?>" class="profile"><img src="/images/user-button.png"/>профиль</a>
 		<a href="/<?php echo URL::url_to_route('site-registration:logout');?>"><img src="/images/exit-button.png"/>выход</a>
 	</div>
 	<div class="clear"></div>

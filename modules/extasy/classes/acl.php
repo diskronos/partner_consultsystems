@@ -71,7 +71,8 @@ class ACL extends Extasy_ACL
 		$this->allow('logged','site_cabinet',array(
 			'index',
 			'main_block',
-			'materials'
+			'materials',
+			'profile'
 			
 		));
 	}

@@ -4,9 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title>Цены и тарифы - WebConsult - онлайн консультант для сайта</title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="Тарифные планы на использование системы онлайн консультирования WebConsult" />
+	<title><?php if (isset($title)) echo $title;?></title>
+	<meta name="keywords" content="<?php if (isset($keywords)) echo $keywords;?>" />
+	<meta name="description" content="<?php if (isset($description)) echo $description;?>" />
 	<?php echo HTML::style('css/main.css');?>
 	<?php echo HTML::style('extasy/css/jquery-ui-1.8.23.custom.css');?>
 	<?php echo HTML::script('js/jquery-1.6.2.min.js')?>

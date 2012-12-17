@@ -263,19 +263,6 @@ Route::set('site-registration', 'registration(/<action>)')
 		'controller' => 'registration',
 	));
 
-//Route::set('site-signup', 'signup')
-//	->defaults(array(
-//		'directory' => 'site',
-//		'controller' => 'registration',
-//		'action' => 'signup'
-//	));
-Route::set('site-profile', 'profile')
-	->defaults(array(
-		'directory' => 'site',
-		'controller' => 'profile',
-		'action' => 'index',
-	));
-
 //---------------------}Регистрация---------------------------------------------
 
 //---------------------Глобальные{----------------------------------------------

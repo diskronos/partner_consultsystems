@@ -10,7 +10,7 @@ class Controller_Site_Cabinet_Accounting extends Controller_Site_Cabinet
 		parent::before();
 		$this->_requisites = $this->_user->requisites;
 		$this->template->requisites = $this->_requisites;
-		$this->template->active = 'accounting';
+	//	$this->template->active = 'accounting';
 	}
 	public function get_payout_date()
 	{
@@ -75,6 +75,7 @@ class Controller_Site_Cabinet_Accounting extends Controller_Site_Cabinet
 
 	public function action_index() 
 	{
+		$this->set_tdk('Панель партнера - Бухгалтерия');
 		$this->set_view('cabinet/accounting/index');
 	}
 	

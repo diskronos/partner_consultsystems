@@ -4,10 +4,10 @@ defined('SYSPATH') or die('No direct script access.');
 
 class Controller_Site_Cabinet_Support extends Controller_Site_Cabinet 
 {
-	public function before() {
-		parent::before();
-		$this->template->active = 'support';
-	}
+//	public function before() {
+//		parent::before();
+//		$this->template->active = 'support';
+//	}
 
 	protected function check_existance(ORM $item)
 	{
@@ -25,6 +25,7 @@ class Controller_Site_Cabinet_Support extends Controller_Site_Cabinet
 	}
 	public function action_index()
 	{
+		$this->set_tdk('Панель партнера - Поддержка');
 
 		$form = new Form_Site_Ticket_Branch(ORM::factory('ticket_branch'));
 		if (isset($_POST['submit']) AND $form->submit())
@@ -50,6 +51,8 @@ class Controller_Site_Cabinet_Support extends Controller_Site_Cabinet
 		$this->check_existance($ticket_branch);
 		$this->check_branch_ownage($ticket_branch);
 
+		$this->set_tdk('Панель партнера - Поддержка ('. $ticket_branch->topic .')');
+
 		$ticket_branch->new_messages_admin = 0;
 
 		$form = new Form_Site_Ticket_Message($ticket_branch);
@@ -63,8 +66,4 @@ class Controller_Site_Cabinet_Support extends Controller_Site_Cabinet
 		$this->set_view('cabinet/support/ticket');
 	}
 	
-//	public function action_new()
-//	{
-//		$this->set_view('cabinet/clients/register_client');
-//	}
 }

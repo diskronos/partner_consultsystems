@@ -7,7 +7,6 @@ class Controller_Site_Cabinet_Clients extends Controller_Site_Cabinet
 {	
 	public function before() {
 		parent::before();
-		$this->template->active = 'clients';
 	}
 	
 	public function set_search(ORM $clients, $search_string)
@@ -19,6 +18,7 @@ class Controller_Site_Cabinet_Clients extends Controller_Site_Cabinet
 
 	public function action_index()
 	{
+		$this->set_tdk('Панель партнера - Клиенты');
 		$clients = $this->_user->clients;
 		$search_string = arr::get($_GET, 'search', '');
 		$this->set_search($clients, $search_string);
@@ -52,7 +52,8 @@ class Controller_Site_Cabinet_Clients extends Controller_Site_Cabinet
 	
 	public function action_new()
 	{
-		$this->template->active = 'clients_new';
+		$this->set_tdk('Панель партнера - Регистрация клиента');
+
 		$this->template->partner_id = Auth::instance()->get_user()->id;
 		$this->set_view('cabinet/clients/register_client');
 	}

@@ -5,6 +5,8 @@ class Controller_Site_Cabinet_Statistics extends Controller_Site_Cabinet
 
 	public function action_index()
 	{
+		$this->set_tdk('Панель партнера - Статистика');
+
 		$balance = Webconsult_Balance::factory($this->_user->id);
 		$form = new Form_Site_Additional_Datepick();
 		$this->template->form = $form;
