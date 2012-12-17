@@ -23,7 +23,8 @@ class Form_Site_Ticket_Message extends CM_Form_Abstract
 	{
 		$message = ORM::factory('ticket_message');
 		$message->author_id = Auth::instance()->get_user()->id;
-		$message->message_text = $this->get_field('message_text')->get_value()->get_raw();
+		$message_text = strip_tags($this->get_field('message_text')->get_value()->get_raw());
+		$message->message_text = $message_text;
 		$message->branch_id = $this->_model->id;
 		$message->save();
 	}

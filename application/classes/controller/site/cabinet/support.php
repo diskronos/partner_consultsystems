@@ -26,12 +26,22 @@ class Controller_Site_Cabinet_Support extends Controller_Site_Cabinet
 	public function action_index()
 	{
 		$this->set_tdk('Панель партнера - Поддержка');
+		$session = Session::instance();
 
 		$form = new Form_Site_Ticket_Branch(ORM::factory('ticket_branch'));
+
+		if ($message = $session->get('ticket_added')) 
+		{
+			$this->template->message = $message;
+			$session->delete('ticket_added');
+		}
+
 		if (isset($_POST['submit']) AND $form->submit())
 		{
-			$a = 1;
+			$session->set('ticket_added', 'Запрос добавлен');
+			$this->redirect('site-cabinet_support');
 		}
+
 		$ticket_branches = ORM::factory('ticket_branch')
 				->select(db::expr('greatest(created_at, ifnull(updated_at, 0)) as last_update'))
 				->where('starter_id', '=', $this->_user->id)
@@ -40,7 +50,6 @@ class Controller_Site_Cabinet_Support extends Controller_Site_Cabinet
 				->find_all();
 
 		$this->template->ticket_branches = $ticket_branches;
-
 		$this->template->form = $form;
 		$this->set_view('cabinet/support/index');
 	}
@@ -54,11 +63,12 @@ class Controller_Site_Cabinet_Support extends Controller_Site_Cabinet
 		$this->set_tdk('Панель партнера - Поддержка ('. $ticket_branch->topic .')');
 
 		$ticket_branch->new_messages_admin = 0;
+		$ticket_branch->save();
 
 		$form = new Form_Site_Ticket_Message($ticket_branch);
 		if (isset($_POST['submit']) AND $form->submit())
 		{
-			$a = 1;
+			$this->redirect('site-cabinet_support:ticket?id=' . $this->param('id'));
 		}
 		$this->template->branch = $ticket_branch;
 		$this->template->messages = $ticket_branch->messages->find_all();

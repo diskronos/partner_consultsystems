@@ -2,6 +2,7 @@
 
 defined('SYSPATH') or die('No direct script access.');
 ?>
+<?php if (isset($message)) echo $message;?>
 <!-- support block -->
 <div class="sk-support-block">
 
