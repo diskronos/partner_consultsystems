@@ -13,4 +13,9 @@ class Model_Ticket_Message extends ORM
 			'foreign_key'=> 'author_id',
 		),
 	);
+	public function save(Validation $validation = NULL)
+	{
+		$this->message_text = htmlspecialchars($this->message_text, ENT_COMPAT, 'UTF-8', false);
+		return parent::save($validation);
+	}
 }

@@ -13,7 +13,6 @@ class Form_Site_Ticket_Branch extends CM_Form_Abstract
 		$this->set_field('topic', new CM_Field_String());
 		$this->set_field('message_text', new CM_Field_Text());
 	}
-
 	
 	protected function populate() 
 	{
@@ -25,8 +24,7 @@ class Form_Site_Ticket_Branch extends CM_Form_Abstract
 	{
 		$message = ORM::factory('ticket_message');
 		$message->author_id = Auth::instance()->get_user()->id;
-		$message_text = strip_tags($this->get_field('message_text')->get_value()->get_raw());
-		$message->message_text = $message_text;
+		$message->message_text = $this->get_field('message_text')->get_value()->get_raw();
 		$message->branch_id = $this->_model->id;
 		$message->save();
 		

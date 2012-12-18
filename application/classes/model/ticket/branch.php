@@ -113,4 +113,11 @@ class Model_Ticket_Branch extends ORM
 		return ($this->status =='closed') ? '': '[Ответить]';
 	}
 
+	public function save(Validation $validation = NULL)
+	{
+		$this->topic = htmlspecialchars($this->topic, ENT_COMPAT, 'UTF-8', false);
+		return parent::save($validation);
+	}
+
+
 }
