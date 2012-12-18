@@ -3399,8 +3399,11 @@ font-size: 11px;
 {
 								background: #EDEDED;
 }
+.payment-table tr.tr-yellow-gray td
+{
+								background: #F3E2D0;
+}
 /* end payment table */
-
 .sk-payment-block .left-column .navi-box
 {
 								padding-bottom: 30px;

@@ -130,7 +130,7 @@ class Webconsult_Transaction
 								array(
 									'partner_id' => $partner->id,
 									'payout_sum' => $payout_sum,
-									'commentary' => 'Вывод средств с баланса (на ' . $partner->requisites->name .')',
+									'commentary' => 'Запрос на вывод средств с баланса (на ' . $partner->requisites->name .')',
 								))
 						->save();
 			Webconsult_Balance::factory($partner)->set_new_balance();

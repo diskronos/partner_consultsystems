@@ -114,4 +114,8 @@ class Model_Money_Payout extends ORM
 	{
 		return self::$_statuses;
 	}
+	public function get_color()
+	{
+		return ($this->status == 'paid') ? 'yellow' : 'yellow-gray';
+	}
 }

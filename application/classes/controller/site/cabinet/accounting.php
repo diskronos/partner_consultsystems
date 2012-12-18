@@ -100,15 +100,24 @@ class Controller_Site_Cabinet_Accounting extends Controller_Site_Cabinet
 
 	public function set_payout_block()
 	{
+		$session = Session::instance();
 		$balance = Webconsult_Balance::factory($this->_user->id);
 
 		$balance_available = $balance->get_money_available();
+
+		if ($message = $session->get('payout_query_success')) 
+		{
+			$this->template->message = $message;
+			$session->delete('payout_query_success');
+		}
+
 		if (isset($_POST['payout_submit']) AND ($balance_available > 0))
 		{
 			Webconsult_Transaction::money_payout_query(
 				$this->_user->id, 
 				$balance_available
 			);
+			$session->set('payout_query_success', 'Запрос на вывод средств отправлен');
 			$this->redirect('site-cabinet_accounting');
 		}
 		

@@ -39,6 +39,7 @@ class Controller_Admin_Money_Payout extends Controller_Crud
 	protected function set_paid_routine(ORM $item)
 	{
 		$item->status = 'paid';
+		$item->commentary = 'Вывод средств с баланса (на ' . $item->partner->requisites->name .')';
 		$item->save();
 	}
 	

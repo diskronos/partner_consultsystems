@@ -44,7 +44,7 @@ defined('SYSPATH') or die('No direct script access.');
 				</tr>
 			<?php endforeach;?>
 			<?php foreach ($payouts as $payout):?>
-				<tr class="tr-yellow">
+				<tr class="tr-<?php echo $payout->color; ?>">
 					<td class="col1"><?php echo $payout->commentary?></td>
 					<td class="col2"><?php echo $payout->balance_change?></td>
 					<td class="col3 last"><?php echo $payout->date?></td>

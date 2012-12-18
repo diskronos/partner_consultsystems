@@ -7,8 +7,16 @@ defined('SYSPATH') or die('No direct script access.');
 	{
 		return confirm("Вы уверены, что указали правильные данные? После отправки запроса кошелек можно будет изменить только через службу поддержки");
 	}
-</script>
+	function check_payout()
+	{
+		<?php if ($available_balance > 0):?>
+			$('#pay-form').submit();
+		<?php else:?>
+			alert('Нет денег для вывода');
+		<?php endif;?>
+	}
 
+</script>
 <div class="right-column legal">
 	<!-- warning box -->
 	<?php if (!$requisites):?>
@@ -81,7 +89,7 @@ defined('SYSPATH') or die('No direct script access.');
 			<div class="purse-form">
 				<?php echo ext::form_begin(NULL, array('id' => 'pay-form'));?>
 					<input type="hidden" name="payout_submit" value="submit"/>
-					<a href="#" onclick="javascript:$('#pay-form').submit();">
+					<a href="#" onclick="javascript:check_payout();">
 						вывести
 						<span>на расчетный счет</span>
 					</a>
