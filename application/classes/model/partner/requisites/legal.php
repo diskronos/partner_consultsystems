@@ -141,4 +141,14 @@ class Model_Partner_Requisites_Legal extends ORM
 		return $this->payment_account;
 	}
 
+	public function save(Validation $validation = NULL)
+	{
+		foreach (array_keys(self::$_requisite_names) as $field_name)
+		{
+			$this->$field_name = htmlspecialchars($this->$field_name, ENT_COMPAT, 'UTF-8', false);
+		}
+		return parent::save($validation);
+	}
+
+
 }

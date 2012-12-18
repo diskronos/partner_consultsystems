@@ -35,4 +35,11 @@ class Model_Partner_Requisites_Individual extends ORM
 		return $this->wmz_purse_number;
 	}
 
+	public function save(Validation $validation = NULL)
+	{
+		$this->wmz_purse_number = htmlspecialchars($this->wmz_purse_number, ENT_COMPAT, 'UTF-8', false);
+		return parent::save($validation);
+	}
+
+
 }
