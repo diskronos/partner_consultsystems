@@ -94,7 +94,9 @@ class Webconsult_Transaction
 		$db = Database::instance();
 		$db->begin();
 		try {
-			$transaction_client_to_company = ORM::factory('money_payment_client', $transaction_id);
+			$transaction_client_to_company = ORM::factory('money_payment_client')
+					->where('transaction_id', '=', $transaction_id)
+					->find();
 			$transaction_client_to_company->status = 'reverted';
 			$transaction_client_to_company->save();
 			$transaction_company_to_partner = $transaction_client_to_company->partner_payment;
@@ -106,12 +108,11 @@ class Webconsult_Transaction
 				$partner = $transaction_company_to_partner->partner;
 				Webconsult_Balance::factory($partner)->set_new_balance();
 			}
-	//		Webconsult_Balance::factory($client)->set_new_balance();
-
 			$db->commit();
 		}
 		catch (Database_Exception $e)
 		{
+			var_dump($e->getMessage());
 			$db->rollback();
 			return false;
 		}

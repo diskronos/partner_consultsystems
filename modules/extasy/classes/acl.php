@@ -73,7 +73,6 @@ class ACL extends Extasy_ACL
 			'main_block',
 			'materials',
 			'profile'
-			
 		));
 	}
 }
