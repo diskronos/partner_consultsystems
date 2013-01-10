@@ -250,6 +250,11 @@ class Extasy_Model_User extends ORM
 		{
 			$this->partner_group_id = $group_id;
 			$this->save();
+			Webconsult_Message::send($this->id, 'new_level', $this->message_params);
 		}
+	}
+	public function get_message_params()
+	{
+		return array('level_name' => $this->partner_group->name);
 	}
 }

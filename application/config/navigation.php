@@ -20,8 +20,14 @@ return array(
 		'title' => 'Редактировать реквизиты',
 		'route' => 'admin-partner_requisites_moderate:edit',
 		'parent' => 'admin.partner_requisites_moderate.index',
-		
 	),
+
+	'admin.partner_requisites_edit.edit' => array(
+		'model' => 'user',
+		'title' => 'Редактировать реквизиты ${model.name}',
+		'route' => 'admin-partner_requisites_edit:edit',
+	),
+
 	'admin.message_type.index' => array(
 		'title' => 'Типы сообщений',
 		'route' => 'admin-message_type:index'

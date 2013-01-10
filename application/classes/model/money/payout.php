@@ -27,6 +27,11 @@ class Model_Money_Payout extends ORM
 			'template' => '${status_rendered}'
 		),
 		'created_at' => 'timestamp',
+		'requisites' => array(
+			'width' => '100',
+			'type' => 'template',
+			'template' => '${requisites_rendered}'
+		),
 		'edit' => array(
 			'width' => '50',
 			'type' => 'link',
@@ -35,12 +40,20 @@ class Model_Money_Payout extends ORM
 			
 		),
 		'set_paid' => array(
-			'width' => '180',
+			'width' => '160',
 			'type' => 'link',
 			'route_str' => 'admin-money_payout:set_paid?id=${id}',
 			'title' => '${set_paid_rendered}',
 			
 		),
+		'unset_paid' => array(
+			'width' => '110',
+			'type' => 'link',
+			'route_str' => 'admin-money_payout:unset_paid?id=${id}',
+			'title' => '${unset_paid_rendered}',
+			
+		),
+
 	);
 
 	public function rules()
@@ -60,9 +73,11 @@ class Model_Money_Payout extends ORM
 			'partner_id' => 'Логин',
 			'payout_sum' => 'Сумма выплаты',
 			'status' => 'Статус',
+			'requisites' => 'Кошелек WebMoney / Реквизиты',
+			'created_at' => 'Дата заказа',
 		);
 	}
-	
+
 	public function form()
 	{
 		return new Form_Admin_Money_Payout($this);
@@ -72,7 +87,6 @@ class Model_Money_Payout extends ORM
 	{
 		return '-' . ($this->payout_sum);
 	}
-
 
 	public function get_date()
 	{
@@ -117,5 +131,36 @@ class Model_Money_Payout extends ORM
 	public function get_color()
 	{
 		return ($this->status == 'paid') ? 'yellow' : 'yellow-gray';
+	}
+	
+	public function get_requisites_rendered()
+	{
+		if ($this->partner->status == 'individual')
+		{
+			return $this->partner->requisites->wmz_purse_number;
+		}
+		else 
+		{
+			return '<a href="/' . Url::url_to_route('admin-partner_requisites_edit?id=' . $this->partner->id) . '" target="_blank">Реквизиты</a>';
+		}
+	}
+	public function get_unset_paid_rendered()
+	{
+		switch ($this->status)
+		{
+			case 'pending':
+				$result = '';
+				break;
+			case 'paid':
+				$result = '[Откатить отметку]';
+				break;
+			default:
+				break;
+		}
+		return $result;
+	}
+	public function get_message_params()
+	{
+		return array('payout_sum' => $this->payout_sum);
 	}
 }

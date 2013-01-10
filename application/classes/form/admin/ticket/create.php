@@ -29,6 +29,6 @@ class Form_Admin_Ticket_Create extends CM_Form_Abstract
 		$message->message_text = $this->get_field('message_text')->get_value()->get_raw();
 		$message->branch_id = $this->_model->id;
 		$message->save();
-		
+		Webconsult_Message::send($this->_model->starter_id, 'new_ticket', $message->message_params);
 	}
 }

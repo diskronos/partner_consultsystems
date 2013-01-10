@@ -11,6 +11,12 @@ class Controller_Admin_Money_Payout extends Controller_Crud
 			'title' => 'Отметить выплаченными',
 			'confirm' => 'Вы уверены?',
 			'one_item' => TRUE
+		),
+		'unset_paid' => array(
+			'handler' => 'unset_paid_routine',
+			'title' => 'Снять отметку о выплате',
+			'confirm' => 'Вы уверены?',
+			'one_item' => TRUE
 		)
 	);
 
@@ -40,6 +46,21 @@ class Controller_Admin_Money_Payout extends Controller_Crud
 	{
 		$item->status = 'paid';
 		$item->commentary = 'Вывод средств с баланса (на ' . $item->partner->requisites->name .')';
+		$item->save();
+		Webconsult_Message::send($item->partner_id, 'new_payout', $item->message_params);
+	}
+
+	public function action_unset_paid()
+	{
+		$item = $this->get_item();
+		$this->unset_paid_routine($item);
+		$this->redirect($this->get_index_route());
+	}
+
+	protected function unset_paid_routine(ORM $item)
+	{
+		$item->status = 'pending';
+		$item->commentary = '';
 		$item->save();
 	}
 	

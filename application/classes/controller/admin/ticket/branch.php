@@ -38,6 +38,11 @@ class Controller_Admin_Ticket_Branch extends Controller_Crud
 	public function get_filter_form(ORM $model) {
 		return new Form_Admin_Filter_Ticket($model);
 	}
+	
+	public function before_fetch(ORM $item) 
+	{
+		return $item->order_by(db::expr('greatest(created_at, ifnull(updated_at, 0))'),'desc');
+	}
 
 	public function action_edit()
 	{
@@ -76,21 +81,5 @@ class Controller_Admin_Ticket_Branch extends Controller_Crud
 
 		$this->template->form = $form;
 	}
-	
-
-	
-//	public function action_create()
-//	{
-//		$this->redirect('admin-partner_group:index');
-//	}
-//	
-//	public function action_delete()
-//	{
-//		$this->redirect('admin-partner_group:index');
-//	}
-//	public function action_edit()
-//	{
-//		$this->redirect('admin-partner_group:index');
-//	}
 
 }

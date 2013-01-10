@@ -10,7 +10,10 @@ defined('SYSPATH') or die('No direct script access.');
 	function check_payout()
 	{
 		<?php if ($available_balance > 0):?>
-			$('#pay-form').submit();
+			if (confirm_message())
+			{
+				$('#pay-form').submit();
+			}
 		<?php else:?>
 			alert('Нет денег для вывода');
 		<?php endif;?>
@@ -71,6 +74,12 @@ defined('SYSPATH') or die('No direct script access.');
 	</div>
 	<?php if (($requisites) AND ($requisites->confirmed)):?>
 		<div class="partner-info">
+			<?php if (isset($message)):?>
+				<div class="info" style="color:green;">
+					<?php echo $message;?>
+				</div>
+			<?php endif;?>
+
 			<div class="info">
 				<span>На балансе: </span><?php echo $current_balance?> рублей
 			</div>

@@ -85,5 +85,11 @@ class Model_Client extends ORM
 	{
 		return new Form_Admin_Client($this);
 	}
+	public function create(Validation $validation = NULL)
+	{
+		$item = parent::create($validation);
+		Webconsult_Message::send($this->partner_id, 'new_client', array('client_name' => $this->name));
+		return $item;
+	}
 
 }

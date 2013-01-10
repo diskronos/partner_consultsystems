@@ -32,6 +32,9 @@ class Controller_Admin_Money_Payment_Client extends Controller_Crud
 	}
 	public function action_index() {
 		parent::action_index();
-//		Navigation::instance()->actions()->clear();
+	}
+	public function before_fetch(ORM $item) 
+	{
+		return $item->order_by('created_at','desc');
 	}
 }

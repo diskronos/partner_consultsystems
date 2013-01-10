@@ -111,5 +111,11 @@ class Model_Money_Payment_Client extends ORM
 	{
 		return $this->status == 'holded' ? '[Откатить]' : '';
 	}
-
+	public function get_message_params()
+	{
+		return array(
+			'client_name' => $this->client->name, 
+			'payment_sum'=>$this->payment_sum
+		);
+	}
 }

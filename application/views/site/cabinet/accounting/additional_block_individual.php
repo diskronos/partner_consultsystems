@@ -10,7 +10,10 @@ defined('SYSPATH') or die('No direct script access.');
 	function check_payout()
 	{
 		<?php if ($available_balance > 0):?>
-			$('#pay-form').submit();
+			if (confirm_message())
+			{
+				$('#pay-form').submit();
+			}
 		<?php else:?>
 			alert('Нет денег для вывода');
 		<?php endif;?>
@@ -36,7 +39,6 @@ defined('SYSPATH') or die('No direct script access.');
 		</div>
 	<?php endif;?>
 	<!-- end warning box -->
-
 	<!-- partner info -->
 	<div class="partner-info">
 
@@ -58,9 +60,7 @@ defined('SYSPATH') or die('No direct script access.');
 				<?php endif;?>
 			<div class="clear"></div>
 		<?php echo ext::form_end()?>
-
-		Указывается один раз, изменить нельзя
-	</div>
+			Для изменения номера кошелька обращайтесь в <a href="/<?php echo URL::url_to_route('site-cabinet_support')?>">тех. поддержку</a></div>
 	<!--	 partner info -->
 	<div class="partner-info">
 			<?php if (isset($message)):?>

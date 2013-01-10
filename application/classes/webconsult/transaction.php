@@ -77,6 +77,8 @@ class Webconsult_Transaction
 								))
 						->save();
 				Webconsult_Balance::factory($partner)->set_new_balance();
+				Webconsult_Message::send($partner->id, 'new_payment', $transaction_client_to_company->message_params);
+
 			}
 	//		Webconsult_Balance::factory($client)->set_new_balance();
 			$db->commit();

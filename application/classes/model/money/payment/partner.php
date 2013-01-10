@@ -26,16 +26,23 @@ class Model_Money_Payment_Partner extends ORM
 		),
 		'commentary' => NULL,
 		'revert' => array(
-			'width' => '100',
+			'width' => '50',
 			'type' => 'link',
-			'route_str' => 'admin-money_payment_client:revert?id=${id}',
+			'route_str' => 'admin-money_payment_partner:revert?id=${id}',
 			'title' => '${revert_rendered}',
+		),
+
+		'unhold' => array(
+			'width' => '110',
+			'type' => 'link',
+			'route_str' => 'admin-money_payment_partner:unhold?id=${id}',
+			'title' => '${unhold_rendered}',
 		),
 
 		'delete' => array(
 			'width' => '50',
 			'type' => 'link',
-			'route_str' => 'admin-money_payment_client:delete?id=${id}',
+			'route_str' => 'admin-money_payment_partner:delete?id=${id}',
 			'title' => '[X]',
 		),
 
@@ -48,6 +55,7 @@ class Model_Money_Payment_Partner extends ORM
 			'payment_sum' => 'Изменение баланса',
 			'status' => 'Статус',
 			'commentary' => 'Комментарий',
+			'balance' => 'Текущий баланс',
 		);
 	}
 
@@ -102,5 +110,10 @@ class Model_Money_Payment_Partner extends ORM
 	public function get_payment_sum_signed()
 	{
 		return ($this->payment_sum > 0) ? '+' . $this->payment_sum : $this->payment_sum;
+	}
+
+	public function get_unhold_rendered()
+	{
+		return $this->status == 'holded' ? '[Снять с ожидания]' : '';
 	}
 }
