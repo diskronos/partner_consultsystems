@@ -44,10 +44,11 @@ class Controller_Admin_Money_Payout extends Controller_Crud
 
 	protected function set_paid_routine(ORM $item)
 	{
+		$partner = $item->partner;
 		$item->status = 'paid';
-		$item->commentary = 'Вывод средств с баланса (на ' . $item->partner->requisites->name .')';
+		$item->commentary = 'Вывод средств с баланса (на ' . $partner->requisites->name .')';
 		$item->save();
-		Webconsult_Message::send($item->partner_id, 'new_payout', $item->message_params);
+		Webconsult_Message::send($item->partner_id, 'new_payout_' . $partner->status, $item->message_params);
 	}
 
 	public function action_unset_paid()
