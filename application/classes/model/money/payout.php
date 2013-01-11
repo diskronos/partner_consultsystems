@@ -161,6 +161,20 @@ class Model_Money_Payout extends ORM
 	}
 	public function get_message_params()
 	{
-		return array('payout_sum' => $this->payout_sum);
+		$partner = $this->partner;
+		$result = array(
+			'payout_sum' => $this->payout_sum,
+			'new_balance' => $partner->balance,
+			'contact' => $this->fullname,
+		);
+		if ($partner->status == 'individual')
+		{
+			$result['purse_number'] = $partner->requisites->wmz_purse_number;
+		}
+		else 
+		{
+			$result['company_name'] = $partner->company_name;
+		}
+		return $result;
 	}
 }

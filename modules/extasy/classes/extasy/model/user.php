@@ -248,13 +248,18 @@ class Extasy_Model_User extends ORM
 		$group_id = ORM::factory('partner_group')->get_group_id($this->money_earned);
 		if ($group_id != $this->partner_group_id)
 		{
+			$old_group = ORM::factory('partner_group', $this->partner_group_id);
+			$new_group = ORM::factory('partner_group', $group_id);
 			$this->partner_group_id = $group_id;
 			$this->save();
-			Webconsult_Message::send($this->id, 'new_level', $this->message_params);
+			Webconsult_Message::send($this->id, 'new_level',
+					array(
+						'new_level_name' => $new_group->name,
+						'old_level_name' => $old_group->name,
+						'new_percent' => $new_group->payout_ratio,
+						'old_percent' => $old_group->payout_ratio,
+						'sum_earned' => $new_group->payment_limit,
+					));
 		}
-	}
-	public function get_message_params()
-	{
-		return array('level_name' => $this->partner_group->name);
 	}
 }

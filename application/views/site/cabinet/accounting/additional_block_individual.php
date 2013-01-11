@@ -3,14 +3,20 @@
 defined('SYSPATH') or die('No direct script access.');
 ?>
 <script>
-	function confirm_message()
+	function confirm_message_requisites()
 	{
 		return confirm("Вы уверены, что указали правильные данные? После отправки запроса кошелек можно будет изменить только через службу поддержки");
 	}
+
+	function confirm_message_payout()
+	{
+		return confirm("Вы действительно хотите вывести денеги на кошелек?");
+	}
+
 	function check_payout()
 	{
 		<?php if ($available_balance > 0):?>
-			if (confirm_message())
+			if (confirm_message_payout())
 			{
 				$('#pay-form').submit();
 			}
@@ -56,7 +62,7 @@ defined('SYSPATH') or die('No direct script access.');
 		<?php echo ext::form_begin(NULL,array('class' => 'req-form'));?>
 			<?php echo $form->get_field('wmz_purse_number')->set_attributes(array('class' => 'text'))->render()?>
 				<?php if (!$requisites):?>
-		<input type="submit" name="send_reqs"class="button" onclick='javascript : return confirm_message();' value="" />
+		<input type="submit" name="send_reqs"class="button" onclick='javascript : return confirm_message_requisites();' value="" />
 				<?php endif;?>
 			<div class="clear"></div>
 		<?php echo ext::form_end()?>

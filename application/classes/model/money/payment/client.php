@@ -114,8 +114,9 @@ class Model_Money_Payment_Client extends ORM
 	public function get_message_params()
 	{
 		return array(
-			'client_name' => $this->client->name, 
-			'payment_sum'=>$this->payment_sum
+			'client_name' => $this->client->login, 
+			'payment_sum'=>$this->payment_sum,
+			'balance' => $this->client->partner->balance,
 		);
 	}
 }

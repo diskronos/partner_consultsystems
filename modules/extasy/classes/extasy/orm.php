@@ -10,12 +10,14 @@ class Extasy_ORM extends Kohana_ORM implements ArrayAccess
 	private $_form = NULL;
 
 	protected $_grid_columns = array();
-	protected $_grid_options = array();
+	//protected $_grid_options = array();
 
 	private $_has_many_to_save = array();
 
 	protected $_render_options = array();
 	
+	protected $_grid_options = array( 'per_page' => '10');
+
 	/**
 	 * Updates all existing records
 	 * Т.к. в 3.2.2 этой ф-ции нет, то приходится реализоовывать здесь.

@@ -88,7 +88,11 @@ class Model_Client extends ORM
 	public function create(Validation $validation = NULL)
 	{
 		$item = parent::create($validation);
-		Webconsult_Message::send($this->partner_id, 'new_client', array('client_name' => $this->name));
+		Webconsult_Message::send($this->partner_id, 'new_client', 
+				array(
+					'client_name' => $this->login,
+					'registration_date' => date('d.m.Y', $this->created_at),
+				));
 		return $item;
 	}
 

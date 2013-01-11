@@ -18,7 +18,10 @@ class Controller_Site_Cabinet extends Controller_Auth
 		$this->template->group = new Helper_Group($this->_user->money_earned, $this->_user->partner_group_id);
 		$this->set_tdk('Панель партнера');
 	}
-	
+	public function forward_403() 
+	{
+		$this->redirect('site-index');
+	}
 	public function set_tdk($title = '', $description = '', $keywords = '')
 	{
 		$this->template->title = $title;
