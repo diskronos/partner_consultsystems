@@ -145,13 +145,13 @@ defined('SYSPATH') or die('No direct script access.');
 	<div class="clear"></div>
 
 
-	<div id="user_site_block" class="form_elem">
+<!--	<div id="user_site_block" class="form_elem">
 		<div class="form_caption_block">сайт:</div>
 		<div class="form_input_block"><input class="forminput" type="text" id="user_name" name="site" value=""></div>
 		<div class="form_hint_block">Сайт клиента.</div>
 		<div class="form_error_block"></div>
 	</div> 
-	<div class="clear"></div>
+	<div class="clear"></div>-->
 
 	<div id="user_tariff_block" class="form_elem">
 		<div class="form_caption_block">тариф:</div>

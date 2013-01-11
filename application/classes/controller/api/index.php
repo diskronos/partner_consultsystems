@@ -15,12 +15,20 @@ class Controller_Api_Index extends Controller
 		'email' => 'email',
 		'site' => 'site',
 		'tariff'=>'tariff',
+		'date_expire' => 'date_expire'
 	);
 	static $_payment_variables = array(
 		'certificate' => 'certificate',
 		'client_id' => 'client_id',
 		'payment_sum' => 'payment_sum',
 		'transaction_id' => 'transaction_id',
+	);
+
+	static $_site_variables = array(
+		'certificate' => 'certificate',
+		'client_id' => 'client_id',
+		'url' => 'url',
+		'foreign_id' => 'site_id',
 	);
 
 	public function action_index()
@@ -44,6 +52,26 @@ class Controller_Api_Index extends Controller
 		return (md5($partner_id .',' . $login .',' . $this->_key) == $certificate);
 	}
 	
+	private function check_certificate_site(&$variables)
+	{
+		//var_dump($variables);die();
+		$client_id = arr::get($variables, 'client_id', NULL);
+		$foreign_id = arr::get($variables, 'foreign_id', NULL);
+		$certificate = arr::get($variables, 'certificate');
+		//var_dump(md5($client_id .',' . $foreign_id .',' . $this->_key));
+		return (md5($client_id .',' . $foreign_id .',' . $this->_key) == $certificate);
+	}
+	
+	private function check_client_for_site(&$variables)
+	{
+		var_dump($variables['foreign_id']);
+		$client = ORM::factory('client')->where('foreign_id', '=', $variables['foreign_id'])->find();
+		if (!$client->loaded()) return false;
+		$variables['client_id'] = $client->id;
+		$variables['url'] = urldecode($variables['url']);
+	}
+	
+	
 	private function check_certificate_payment(&$variables)
 	{
 		$client_id = arr::get($variables, 'client_id', NULL);
@@ -57,6 +85,13 @@ class Controller_Api_Index extends Controller
 		$certificate = arr::get($variables, 'certificate');
 	//	var_dump(md5($client->name .',' . $client->login .',' . $this->_key));
 		return (md5($client->name .',' . $client->login .',' . $this->_key) == $certificate);
+	}
+
+	private function check_certificate_client_delete($client, &$variables)
+	{
+		$certificate = arr::get($variables, 'certificate');
+	//	var_dump(md5($client->login .',' . $client->id .',' . $this->_key));die();
+		return (md5($client->login .',' . $client->id .',' . $this->_key) == $certificate);
 	}
 	
 	private function check_certificate_payment_revert(&$variables)
@@ -85,7 +120,7 @@ class Controller_Api_Index extends Controller
 		}
 		return true;
 	}
-
+	//--------------------Клиенты--------------------------
 	protected function register_client(array $variables)
 	{
 		if (!$this->check_certificate_client($variables))
@@ -93,7 +128,6 @@ class Controller_Api_Index extends Controller
 			header('HTTP/1.1 403 Forbidden');
 			exit();
 		}
-		
 		$client = ORM::factory('client')
 				->values($variables);
 		if (!$this->check($client))
@@ -138,8 +172,29 @@ class Controller_Api_Index extends Controller
 		}
 		exit();
 	}
-
 	
+	protected function delete_client(array $variables)
+	{
+		$client = ORM::factory('client')
+				->where('foreign_id', '=', $variables['foreign_id'])
+				->find();
+
+		if (!$client->loaded())
+		{
+			header('HTTP/1.1 404 Not Found');
+			exit();
+		}
+
+		if (!$this->check_certificate_client_delete($client, $variables))
+		{
+			header('HTTP/1.1 403 Forbidden');
+			exit();
+		}
+		$client->delete();
+		exit();
+	}
+
+	//-------------------------Платежи-------------------------
 	protected function register_payment(array $variables)
 	{
 		if (!$this->check_certificate_payment($variables))
@@ -209,13 +264,107 @@ class Controller_Api_Index extends Controller
 		}
 		exit;
 	}
+	//---------------------------Сайты---------------------
+	protected function add_site($variables)
+	{
+		if (!$this->check_certificate_site($variables))
+		{
+			header('HTTP/1.1 403 Forbidden');
+			exit();
+		}
+		if (!$this->check_client_for_site($variables))
+		{
+			header('HTTP/1.1 404 Not Found');
+			exit();
+		}
 
+		$site = ORM::factory('client_site')
+				->values($variables);
+		if (!$this->check($site))
+		{
+			header('HTTP/1.1 422 Unprocessable Entity');
+			echo json_encode($this->_errors);
+		}
+		else 
+		{
+			$site->save();
+		}
+		exit();
+	}
+	
+	protected function update_site($variables)
+	{
+		$site = ORM::factory('client_site')
+				->where('foreign_id', '=', $variables['foreign_id'])
+				->find();
+		if (!$site->loaded())
+		{
+			header('HTTP/1.1 404 Not Found');
+			exit();
+		}
+
+		if (!$this->check_client_for_site($variables))
+		{
+			header('HTTP/1.1 404 Not Found');
+			exit();
+		}
+
+		if (!$this->check_certificate_site($variables))
+		{
+			header('HTTP/1.1 403 Forbidden');
+			exit();
+		}
+		
+		$site->values($variables);
+
+		if (!$this->check($site))
+		{
+			header('HTTP/1.1 422 Unprocessable Entity');
+			echo json_encode($this->_errors);
+		}
+		else 
+		{
+			$site->save();
+		}
+		exit();
+	}
+	protected  function delete_site($variables)
+	{
+		$site = ORM::factory('client_site')
+				->where('foreign_id', '=', $variables['foreign_id'])
+				->find();
+
+		if (!$site->loaded())
+		{
+			header('HTTP/1.1 404 Not Found');
+			exit();
+		}
+
+		if (!$this->check_certificate_site($variables))
+		{
+			header('HTTP/1.1 403 Forbidden');
+			exit();
+		}
+		$site->delete();
+		exit();
+	}
+
+
+	//---------------------------Actions--------------------
 	public function action_client()
 	{
 		$variables = array_map(function($var) { return arr::get($_GET, $var, NULL);}, self::$_client_variables);
 		$this->register_client($variables);
 		exit();
 	}
+
+	public function action_client_delete()
+	{
+		$variables = array_map(function($var) { return arr::get($_GET, $var, NULL);}, self::$_client_variables);
+		$this->delete_client($variables);
+		exit();
+	}
+
 
 	public function action_payment()
 	{
@@ -236,4 +385,12 @@ class Controller_Api_Index extends Controller
 		$this->revert_payment($variables);
 		exit();
 	}
+	
+	public function action_add_site()
+	{
+		$variables = array_map(function($var) { return arr::get($_GET, $var, NULL);}, self::$_site_variables);
+		$this->add_site($variables);
+		exit();
+	}
+	
 }

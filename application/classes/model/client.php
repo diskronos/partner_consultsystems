@@ -13,6 +13,13 @@ class Model_Client extends ORM
 			'foreign_key'=> 'partner_id',
 		),
 	);
+	
+//	protected $_has_many = array(
+//		'partner' => array(
+//			'model' => 'user',
+//			'foreign_key'=> 'partner_id',
+//		),
+//	);
 
 	protected $_grid_columns = array(
 		'name' => NULL,
@@ -22,7 +29,7 @@ class Model_Client extends ORM
 		),
 		'email' => NULL,
 		'tariff' => NULL,
-		'site' => NULL,
+		//'site' => NULL,
 
 		'created_at' => 'timestamp',
 
@@ -50,6 +57,7 @@ class Model_Client extends ORM
 //				array('max_length', array(':value', 16)),
 //				array('regex', array(':value', '#^[a-z0-9\pL ]+$#iu')),
 				array(array($this, 'unique'), array('name', ':value')),
+				array(array($this, 'unique'), array('login', ':value')),
 			),
 			'email' => array(
 				array('not_empty'),
@@ -62,6 +70,7 @@ class Model_Client extends ORM
 			'foreign_id' => array(
 				array('numeric'),
 				array('range', array(':value', 0, 9999999999)),
+				array(array($this, 'unique'), array('foreign_id', ':value')),
 			),
 			'partner_id' => array(
 				array('numeric'),
@@ -77,7 +86,7 @@ class Model_Client extends ORM
 			'name' => 'Имя',
 			'partner_id' => 'Логин партнера',
 			'tariff' => 'Тариф',
-			'site' => 'Сайт',
+		//	'site' => 'Сайт',
 		);
 	}
 	

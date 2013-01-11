@@ -13,6 +13,6 @@ class Form_Admin_Client extends CM_Form_Abstract
 		$this->set_field('email', new CM_Field_String(),20);
 		$this->set_field('partner_id', new CM_Field_Select_ORM_Autocomplete(ORM::factory('user'), 'name'),30);
 		$this->set_field('tariff', new CM_Field_String(),40);
-		$this->set_field('site', new CM_Field_String(),50);
+	//	$this->set_field('site', new CM_Field_String(),50);
 	}
 }
