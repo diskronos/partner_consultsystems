@@ -6,7 +6,8 @@ class Webconsult_Message
 {
 	static $_types = array(
 		'new_ticket'=> 'Новое сообщение из поддержки', 
-		'new_payout' => 'Проведена выплата', 
+		'new_payout_legal' => 'Проведена выплата юр. лицу', 
+		'new_payout_individual' => 'Проведена выплата физ. лицу', 
 		'new_payment' => 'Новый платеж', 
 		'new_level' => 'Новый уровень', 
 		'new_client' => 'Зарегистрирован новый клиент'
