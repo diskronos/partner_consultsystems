@@ -165,7 +165,7 @@ class Model_Money_Payout extends ORM
 		$result = array(
 			'payout_sum' => $this->payout_sum,
 			'new_balance' => $partner->balance,
-			'contact' => $this->fullname,
+			'contact' => $partner->fullname,
 		);
 		if ($partner->status == 'individual')
 		{
