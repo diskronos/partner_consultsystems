@@ -64,14 +64,16 @@ class Controller_Api_Index extends Controller
 	
 	private function check_client_for_site(&$variables)
 	{
-		var_dump($variables['foreign_id']);
-		$client = ORM::factory('client')->where('foreign_id', '=', $variables['foreign_id'])->find();
+		//var_dump($expression)
+		//var_dump($variables['foreign_id']);die();
+		$client = ORM::factory('client')->where('foreign_id', '=', $variables['client_id'])->find();
 		if (!$client->loaded()) return false;
 		$variables['client_id'] = $client->id;
 		$variables['url'] = urldecode($variables['url']);
+		return true;
+	//	var_dump($variables);die();
 	}
-	
-	
+
 	private function check_certificate_payment(&$variables)
 	{
 		$client_id = arr::get($variables, 'client_id', NULL);
@@ -132,6 +134,7 @@ class Controller_Api_Index extends Controller
 				->values($variables);
 		if (!$this->check($client))
 		{
+			var_dump(1);die();
 			header('HTTP/1.1 422 Unprocessable Entity');
 			echo json_encode($this->_errors);
 		}
@@ -277,7 +280,6 @@ class Controller_Api_Index extends Controller
 			header('HTTP/1.1 404 Not Found');
 			exit();
 		}
-
 		$site = ORM::factory('client_site')
 				->values($variables);
 		if (!$this->check($site))
@@ -294,12 +296,9 @@ class Controller_Api_Index extends Controller
 	
 	protected function update_site($variables)
 	{
-		$site = ORM::factory('client_site')
-				->where('foreign_id', '=', $variables['foreign_id'])
-				->find();
-		if (!$site->loaded())
+		if (!$this->check_certificate_site($variables))
 		{
-			header('HTTP/1.1 404 Not Found');
+			header('HTTP/1.1 403 Forbidden');
 			exit();
 		}
 
@@ -309,12 +308,14 @@ class Controller_Api_Index extends Controller
 			exit();
 		}
 
-		if (!$this->check_certificate_site($variables))
+		$site = ORM::factory('client_site')->where('foreign_id', '=', $variables['foreign_id'])->find();
+
+		if (!$site->loaded())
 		{
-			header('HTTP/1.1 403 Forbidden');
+			header('HTTP/1.1 404 Not Found');
 			exit();
 		}
-		
+
 		$site->values($variables);
 
 		if (!$this->check($site))
@@ -330,9 +331,13 @@ class Controller_Api_Index extends Controller
 	}
 	protected  function delete_site($variables)
 	{
-		$site = ORM::factory('client_site')
-				->where('foreign_id', '=', $variables['foreign_id'])
-				->find();
+		if (!$this->check_certificate_site($variables))
+		{
+			header('HTTP/1.1 403 Forbidden');
+			exit();
+		}
+
+		$site = ORM::factory('client_site')->where('foreign_id', '=', $variables['foreign_id'])->find();
 
 		if (!$site->loaded())
 		{
@@ -340,11 +345,6 @@ class Controller_Api_Index extends Controller
 			exit();
 		}
 
-		if (!$this->check_certificate_site($variables))
-		{
-			header('HTTP/1.1 403 Forbidden');
-			exit();
-		}
 		$site->delete();
 		exit();
 	}
@@ -390,6 +390,20 @@ class Controller_Api_Index extends Controller
 	{
 		$variables = array_map(function($var) { return arr::get($_GET, $var, NULL);}, self::$_site_variables);
 		$this->add_site($variables);
+		exit();
+	}
+
+	public function action_update_site()
+	{
+		$variables = array_map(function($var) { return arr::get($_GET, $var, NULL);}, self::$_site_variables);
+		$this->update_site($variables);
+		exit();
+	}
+
+	public function action_delete_site()
+	{
+		$variables = array_map(function($var) { return arr::get($_GET, $var, NULL);}, self::$_site_variables);
+		$this->delete_site($variables);
 		exit();
 	}
 	

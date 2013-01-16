@@ -14,12 +14,12 @@ class Model_Client extends ORM
 		),
 	);
 	
-//	protected $_has_many = array(
-//		'partner' => array(
-//			'model' => 'user',
-//			'foreign_key'=> 'partner_id',
-//		),
-//	);
+	protected $_has_many = array(
+		'sites' => array(
+			'model' => 'client_site',
+			'foreign_key'=> 'client_id',
+		),
+	);
 
 	protected $_grid_columns = array(
 		'name' => NULL,
@@ -86,7 +86,7 @@ class Model_Client extends ORM
 			'name' => 'Имя',
 			'partner_id' => 'Логин партнера',
 			'tariff' => 'Тариф',
-		//	'site' => 'Сайт',
+			'sites' => 'Сайты',
 		);
 	}
 	

@@ -63,19 +63,6 @@
 				</tr>
 			</thead>
 			<tbody>
-<!--			<tr class="tr-light-green">
-				<td class="col1">test1</td>
-				<td class="col2">
-					<div class="client-site">
-
-					</div>
-				</td>
-				<td class="col3">оптимальный</td>
-				<td class="col4">12.11.2012</td>
-				<td class="col5">26.10.2012</td>
-				<td class="col6">12000 руб.</td>
-				<td class="col7 last">4000 руб.</td>
-			</tr>-->
 			<?php foreach ($clients as $client):?>
 				<tr class="tr-light-green">
 					<td class="col1">
@@ -83,7 +70,9 @@
 					</td>
 					<td class="col2">
 						<div class="client-site">
-							<?php echo $client->site;?>
+							<?php foreach ($client->sites->find_all() as $site): ?>
+								<?php echo $site->url;?><br>
+							<?php endforeach;?>
 						</div>
 					</td>
 					<td class="col3">
