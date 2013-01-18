@@ -54,24 +54,19 @@ class Controller_Api_Index extends Controller
 	
 	private function check_certificate_site(&$variables)
 	{
-		//var_dump($variables);die();
 		$client_id = arr::get($variables, 'client_id', NULL);
 		$foreign_id = arr::get($variables, 'foreign_id', NULL);
 		$certificate = arr::get($variables, 'certificate');
-		//var_dump(md5($client_id .',' . $foreign_id .',' . $this->_key));
 		return (md5($client_id .',' . $foreign_id .',' . $this->_key) == $certificate);
 	}
 	
 	private function check_client_for_site(&$variables)
 	{
-		//var_dump($expression)
-		//var_dump($variables['foreign_id']);die();
 		$client = ORM::factory('client')->where('foreign_id', '=', $variables['client_id'])->find();
 		if (!$client->loaded()) return false;
 		$variables['client_id'] = $client->id;
 		$variables['url'] = urldecode($variables['url']);
 		return true;
-	//	var_dump($variables);die();
 	}
 
 	private function check_certificate_payment(&$variables)
@@ -85,22 +80,19 @@ class Controller_Api_Index extends Controller
 	private function check_certificate_client_update($client, &$variables)
 	{
 		$certificate = arr::get($variables, 'certificate');
-	//	var_dump(md5($client->name .',' . $client->login .',' . $this->_key));
 		return (md5($client->name .',' . $client->login .',' . $this->_key) == $certificate);
 	}
 
 	private function check_certificate_client_delete($client, &$variables)
 	{
 		$certificate = arr::get($variables, 'certificate');
-	//	var_dump(md5($client->login .',' . $client->id .',' . $this->_key));die();
-		return (md5($client->login .',' . $client->id .',' . $this->_key) == $certificate);
+		return (md5($client->login .',' . $client->foreign_id .',' . $this->_key) == $certificate);
 	}
 	
 	private function check_certificate_payment_revert(&$variables)
 	{
 		$transaction_id = arr::get($variables, 'transaction_id', NULL);
 		$certificate = arr::get($variables, 'certificate');
-	//	var_dump(md5($transaction_id . ',' . $this->_key));
 		return (md5($transaction_id . ',' . $this->_key) == $certificate);
 	}
 	protected function check(ORM $model)
@@ -134,7 +126,6 @@ class Controller_Api_Index extends Controller
 				->values($variables);
 		if (!$this->check($client))
 		{
-			var_dump(1);die();
 			header('HTTP/1.1 422 Unprocessable Entity');
 			echo json_encode($this->_errors);
 		}
