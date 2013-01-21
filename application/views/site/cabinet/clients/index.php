@@ -1,9 +1,10 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 ?>
 <script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script>
+
 <script>
 	$(document).ready(function(){
-		$("#client-table").tablesorter();
+		$("#client-table").tablesorter({cssDesc : "headerSortDown", cssAsc : "headerSortUp"});
 		$('#sub').click(function(){
 			$input = $('input[name=search]');
 			if ($input.val() == 'поиск по логину или сайту...')
@@ -57,7 +58,7 @@
 					<th class="col2">сайты</th>
 					<th class="col3">тариф</th>
 					<th class="col4">дата.откл.</th>
-					<th class="col5">дата рег.<img src="/images/table-arrow.png"/></th>
+					<th class="col5">дата рег.</th>
 					<th class="col6">платежей</th>
 					<th class="col7 last">заработано</th>
 				</tr>
