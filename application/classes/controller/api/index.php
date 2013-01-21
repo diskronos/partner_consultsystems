@@ -340,7 +340,6 @@ class Controller_Api_Index extends Controller
 		exit();
 	}
 
-
 	//---------------------------Actions--------------------
 	public function action_client()
 	{
